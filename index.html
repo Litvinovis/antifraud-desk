@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Antifraud Desk: Сигнал</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ======= СТАРТОВЫЙ ЭКРАН ======= -->
+  <div id="screen-start" class="screen active">
+    <div class="start-wrapper">
+      <div class="logo-area">
+        <div class="logo-icon">🔍</div>
+        <h1>ANTIFRAUD DESK</h1>
+        <p class="subtitle">С И Г Н А Л</p>
+        <p class="desc">Запомни последовательность тревожных сигналов. Не дай мошенникам уйти.</p>
+      </div>
+
+      <div class="start-form">
+        <div class="mode-selector">
+          <button class="mode-btn active" data-mode="solo" id="btn-solo">
+            <span class="mode-icon">👤</span>
+            <span>Одиночный</span>
+          </button>
+          <button class="mode-btn" data-mode="duel" id="btn-duel">
+            <span class="mode-icon">⚔️</span>
+            <span>Дуэль</span>
+          </button>
+        </div>
+
+        <div id="solo-inputs">
+          <input type="text" id="player1-name" placeholder="Ваш позывной..." maxlength="20" autocomplete="off" />
+        </div>
+
+        <div id="duel-inputs" class="hidden">
+          <input type="text" id="player1-duel-name" placeholder="Оперативник 1..." maxlength="20" autocomplete="off" />
+          <input type="text" id="player2-duel-name" placeholder="Оперативник 2..." maxlength="20" autocomplete="off" />
+        </div>
+
+        <button id="btn-start" class="btn-primary">
+          <span>ПРИСТУПИТЬ К РАБОТЕ</span>
+          <span class="btn-arrow">→</span>
+        </button>
+      </div>
+
+      <!-- Краткое руководство через иконки -->
+      <div class="how-to-play">
+        <div class="htp-step">
+          <div class="htp-icon">👁️</div>
+          <div class="htp-text">Смотри за приборами</div>
+        </div>
+        <div class="htp-arrow">→</div>
+        <div class="htp-step">
+          <div class="htp-icon">🧠</div>
+          <div class="htp-text">Запомни порядок</div>
+        </div>
+        <div class="htp-arrow">→</div>
+        <div class="htp-step">
+          <div class="htp-icon">🖱️</div>
+          <div class="htp-text">Повтори клики</div>
+        </div>
+        <div class="htp-arrow">→</div>
+        <div class="htp-step">
+          <div class="htp-icon">💰</div>
+          <div class="htp-text">Сохрани баланс</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= ИГРОВОЙ ЭКРАН ======= -->
+  <div id="screen-game" class="screen">
+
+    <!-- Верхняя HUD-панель -->
+    <div id="hud">
+      <div class="hud-block" id="hud-balance">
+        <span class="hud-label">БАЛАНС</span>
+        <span class="hud-value" id="balance-value">1 000 000 ₽</span>
+      </div>
+      <div class="hud-block" id="hud-round">
+        <span class="hud-label">РАУНД</span>
+        <span class="hud-value" id="round-value">1</span>
+      </div>
+      <div class="hud-block" id="hud-player">
+        <span class="hud-label">ОПЕРАТИВНИК</span>
+        <span class="hud-value" id="player-name-value">—</span>
+      </div>
+      <div class="hud-block" id="hud-phase">
+        <span class="hud-label">СТАТУС</span>
+        <span class="hud-value" id="phase-value">—</span>
+      </div>
+      <div class="hud-block" id="hud-stress">
+        <span class="hud-label">СТРЕСС</span>
+        <div class="stress-bar">
+          <div class="stress-fill" id="stress-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Таймер -->
+    <div id="timer-bar-wrapper">
+      <div id="timer-bar"></div>
+      <span id="timer-label">—</span>
+    </div>
+
+    <!-- Офисный кабинет -->
+    <div id="office-room">
+
+      <!-- Фоновые декорации -->
+      <div class="room-bg">
+        <div class="wall"></div>
+        <div class="floor"></div>
+        <div class="window-frame">
+          <div class="window-pane"></div>
+          <div class="window-blind"></div>
+        </div>
+        <div class="plant"></div>
+        <div class="filing-cabinet"></div>
+        <div class="ceiling-light"></div>
+      </div>
+
+      <!-- Рабочий стол -->
+      <div class="desk">
+        <div class="desk-surface"></div>
+
+        <!-- 9 интерактивных приборов -->
+
+        <!-- Мониторы (3 шт) -->
+        <div class="device monitor-red" id="dev-0" data-id="0">
+          <div class="monitor-stand"></div>
+          <div class="monitor-body">
+            <div class="monitor-screen red-screen">
+              <div class="screen-content">
+                <div class="alert-icon">⚠</div>
+                <div class="screen-lines">
+                  <div class="sline"></div><div class="sline"></div><div class="sline s3"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="device-label">FRAUD<br>MONITOR</div>
+        </div>
+
+        <div class="device monitor-blue" id="dev-1" data-id="1">
+          <div class="monitor-stand"></div>
+          <div class="monitor-body">
+            <div class="monitor-screen blue-screen">
+              <div class="screen-content">
+                <div class="chart-bars">
+                  <div class="bar b1"></div><div class="bar b2"></div>
+                  <div class="bar b3"></div><div class="bar b4"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="device-label">ANALYTICS</div>
+        </div>
+
+        <div class="device monitor-green" id="dev-2" data-id="2">
+          <div class="monitor-stand"></div>
+          <div class="monitor-body">
+            <div class="monitor-screen green-screen">
+              <div class="screen-content">
+                <div class="terminal-lines">
+                  <div class="tline">&gt; SCAN...</div>
+                  <div class="tline">&gt; CHECK</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="device-label">TERMINAL</div>
+        </div>
+
+        <!-- Факс -->
+        <div class="device fax-machine" id="dev-3" data-id="3">
+          <div class="fax-body">
+            <div class="fax-slot"></div>
+            <div class="fax-paper"></div>
+            <div class="fax-buttons">
+              <div class="fb"></div><div class="fb"></div><div class="fb"></div>
+            </div>
+            <div class="fax-screen"></div>
+          </div>
+          <div class="device-label">FAX</div>
+        </div>
+
+        <!-- Принтер -->
+        <div class="device printer" id="dev-4" data-id="4">
+          <div class="printer-body">
+            <div class="printer-slot-top"></div>
+            <div class="printer-paper-out"></div>
+            <div class="printer-led"></div>
+            <div class="printer-button"></div>
+          </div>
+          <div class="device-label">PRINTER</div>
+        </div>
+
+        <!-- Стационарный телефон -->
+        <div class="device phone-desk" id="dev-5" data-id="5">
+          <div class="phone-body">
+            <div class="phone-handset"></div>
+            <div class="phone-keypad">
+              <div class="pk"></div><div class="pk"></div><div class="pk"></div>
+              <div class="pk"></div><div class="pk"></div><div class="pk"></div>
+            </div>
+            <div class="phone-cord"></div>
+          </div>
+          <div class="device-label">HOTLINE</div>
+        </div>
+
+        <!-- Мобильный телефон -->
+        <div class="device phone-mobile" id="dev-6" data-id="6">
+          <div class="mobile-body">
+            <div class="mobile-screen">
+              <div class="mobile-notch"></div>
+              <div class="mobile-content">
+                <div class="alert-dot"></div>
+              </div>
+            </div>
+            <div class="mobile-button"></div>
+          </div>
+          <div class="device-label">MOBILE</div>
+        </div>
+
+        <!-- Ноутбук -->
+        <div class="device laptop" id="dev-7" data-id="7">
+          <div class="laptop-lid">
+            <div class="laptop-screen">
+              <div class="laptop-content">
+                <div class="l-icon">🔒</div>
+              </div>
+            </div>
+          </div>
+          <div class="laptop-base">
+            <div class="laptop-keyboard"></div>
+            <div class="laptop-touchpad"></div>
+          </div>
+          <div class="device-label">LAPTOP</div>
+        </div>
+
+        <!-- Планшет -->
+        <div class="device tablet" id="dev-8" data-id="8">
+          <div class="tablet-body">
+            <div class="tablet-screen">
+              <div class="tablet-content">
+                <div class="t-graph">
+                  <div class="tg-line"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tablet-home"></div>
+          </div>
+          <div class="device-label">TABLET</div>
+        </div>
+
+      </div><!-- .desk -->
+
+      <!-- Панель текущего ввода -->
+      <div id="input-panel">
+        <div id="input-sequence"></div>
+        <button id="btn-reset" class="btn-secondary hidden">↺ Сброс</button>
+        <button id="btn-sabotage" class="btn-danger hidden">💣 Подстава</button>
+      </div>
+
+      <!-- Оверлей фазы -->
+      <div id="phase-overlay" class="hidden">
+        <div id="phase-overlay-text"></div>
+      </div>
+
+    </div><!-- #office-room -->
+
+  </div><!-- #screen-game -->
+
+  <!-- ======= ЭКРАН РЕЗУЛЬТАТА (конец раунда / дуэль) ======= -->
+  <div id="screen-result" class="screen">
+    <div class="result-wrapper">
+      <div id="result-icon"></div>
+      <h2 id="result-title"></h2>
+      <p id="result-desc"></p>
+      <div id="result-stats"></div>
+      <button id="btn-continue" class="btn-primary">Продолжить →</button>
+    </div>
+  </div>
+
+  <!-- ======= ЭКРАН КОНЦА ИГРЫ ======= -->
+  <div id="screen-gameover" class="screen">
+    <div class="gameover-wrapper">
+      <div class="go-icon">📉</div>
+      <h2 id="go-title">ПРОВАЛ ОПЕРАЦИИ</h2>
+      <p id="go-desc"></p>
+      <div id="go-stats"></div>
+
+      <!-- Таблица рекордов -->
+      <div class="leaderboard">
+        <h3>📋 ТОП АНАЛИТИКОВ</h3>
+        <table id="leaderboard-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Оперативник</th>
+              <th>Раунд</th>
+              <th>Дата</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body"></tbody>
+        </table>
+      </div>
+
+      <button id="btn-restart" class="btn-primary">🔄 Новая операция</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

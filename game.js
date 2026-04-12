@@ -119,8 +119,6 @@ function playSound(type) {
       break;
   }
 
-  osc.start(now);
-  osc.stop(now + 1);
 }
 
 /* =====================================================

@@ -221,478 +221,896 @@ html, body {
   min-height: 0;
 }
 
-/* Фон: стены, пол, окно */
-.room-bg {
-  position: absolute; inset: 0;
+/* =====================================================
+   ОФИСНАЯ КОМНАТА — полный редизайн
+   Перспектива: смотрим немного сверху-спереди
+   ===================================================== */
+
+/* =====================================================
+   ЗАДНЯЯ СТЕНА
+   ===================================================== */
+.room-wall {
+  position: absolute; left: 0; right: 0; top: 0; height: 44%;
+  background: linear-gradient(180deg, #0b1422 0%, #101c2e 75%, #152235 100%);
+  z-index: 1;
+}
+.ceiling-edge {
+  position: absolute; top: 0; left: 0; right: 0; height: 5px;
+  background: #060d18;
+}
+.baseboard {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 9px;
+  background: linear-gradient(180deg, #1c2b3a 0%, #111e2c 100%);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
-.wall {
-  position: absolute; left: 0; right: 0; top: 0; height: 55%;
-  background: linear-gradient(180deg, #1e2a3a 0%, #263347 100%);
+/* =====================================================
+   ПОЛ
+   ===================================================== */
+.room-floor {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 58%;
+  background: linear-gradient(180deg, #0a1220 0%, #060c16 100%);
+  z-index: 2;
 }
-.wall::after {
-  content: '';
-  position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
-  background: #1a2030;
-}
-.floor {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 45%;
-  background: linear-gradient(180deg, #0f172a 0%, #0a0e18 100%);
-}
-/* Плитка пола */
-.floor::before {
+/* Плиточный паттерн пола */
+.room-floor::before {
   content: '';
   position: absolute; inset: 0;
   background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 80px 44px;
+}
+.floor-rug {
+  position: absolute; left: 9%; right: 22%; top: 8%; bottom: 0;
+  background: linear-gradient(135deg, #141428 0%, #111130 50%, #141428 100%);
+  border: 1px solid rgba(59,130,246,0.08);
+  border-radius: 4px; opacity: 0.75;
 }
 
-/* Окно */
-.window-frame {
-  position: absolute; top: 8%; left: 4%;
-  width: 160px; height: 120px;
-  border: 4px solid #2d3f55;
-  border-radius: 4px;
-  background: linear-gradient(135deg, #1a3a5c 0%, #0d2440 50%, #1a3a5c 100%);
-  box-shadow: inset 0 0 30px rgba(59,130,246,0.15), 0 0 20px rgba(59,130,246,0.1);
-  overflow: hidden;
+/* =====================================================
+   ПОТОЛОЧНЫЙ СВЕТИЛЬНИК
+   ===================================================== */
+.ceiling-lamp {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  top: 0; width: 120px; z-index: 5;
 }
-.window-pane {
-  position: absolute; inset: 4px;
-  background: linear-gradient(135deg, rgba(96,165,250,0.1) 0%, rgba(59,130,246,0.05) 100%);
+.cl-stem {
+  width: 5px; height: 20px;
+  background: linear-gradient(90deg, #2d3f55 0%, #4b5563 100%);
+  margin: 0 auto;
 }
-.window-pane::before {
-  content: '';
-  position: absolute; top: 0; left: 50%; width: 2px; height: 100%; background: #2d3f55;
+.cl-shade {
+  width: 120px; height: 24px;
+  background: linear-gradient(180deg, #1f2937 0%, #374151 100%);
+  border-radius: 2px 2px 60% 60%;
+  border: 2px solid #4b5563; border-top: none;
+  position: relative;
 }
-.window-pane::after {
-  content: '';
-  position: absolute; left: 0; top: 50%; width: 100%; height: 2px; background: #2d3f55;
-}
-/* Огни города за окном */
-.window-pane::before {
-  box-shadow: none;
-}
-.window-blind {
-  position: absolute; top: 0; left: 0; right: 0; height: 30px;
-  background: repeating-linear-gradient(
-    180deg,
-    #2d3f55 0px, #2d3f55 4px,
-    #1e2d42 4px, #1e2d42 8px
-  );
-  opacity: 0.8;
-}
-
-/* Растение */
-.plant {
-  position: absolute; bottom: 44%; right: 3%;
-  width: 40px; height: 60px;
-}
-.plant::before {
-  content: '🌿';
-  font-size: 40px;
-  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-}
-.plant::after {
-  content: '';
-  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 24px; height: 16px;
-  background: #5c3d1e; border-radius: 4px 4px 0 0;
-}
-
-/* Шкаф с документами */
-.filing-cabinet {
-  position: absolute; bottom: 44%; right: 8%;
-  width: 48px; height: 70px;
-  background: linear-gradient(180deg, #374151 0%, #1f2937 100%);
-  border-radius: 4px 4px 0 0;
-  border: 1px solid #4b5563;
-}
-.filing-cabinet::before, .filing-cabinet::after {
-  content: '';
-  position: absolute; left: 6px; right: 6px; height: 3px;
-  background: #6b7280; border-radius: 2px;
-}
-.filing-cabinet::before { top: 22px; }
-.filing-cabinet::after  { top: 44px; }
-
-/* Лампа на потолке */
-.ceiling-light {
-  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
-  width: 120px; height: 16px;
-  background: linear-gradient(180deg, #2d3f55 0%, #1e2d42 100%);
-  border-radius: 0 0 8px 8px;
-}
-.ceiling-light::after {
-  content: '';
-  position: absolute; bottom: 0; left: 10px; right: 10px; height: 6px;
-  background: #fbbf24;
-  border-radius: 3px;
-  box-shadow: 0 4px 30px rgba(251,191,36,0.6), 0 0 60px rgba(251,191,36,0.2);
+.cl-glow {
+  position: absolute; bottom: -2px; left: 14px; right: 14px; height: 6px;
+  background: #fbbf24; border-radius: 3px;
+  box-shadow: 0 8px 60px 16px rgba(251,191,36,0.22), 0 0 100px 30px rgba(251,191,36,0.07);
   animation: flicker 8s ease-in-out infinite;
 }
 @keyframes flicker {
-  0%, 90%, 100% { opacity: 1; }
-  92%           { opacity: 0.85; }
-  94%           { opacity: 1; }
-  96%           { opacity: 0.9; }
+  0%, 89%, 100% { opacity: 1; }
+  91% { opacity: 0.82; }
+  93% { opacity: 1; }
+  95% { opacity: 0.88; }
 }
 
-/* ---- РАБОЧИЙ СТОЛ ---- */
-.desk {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  height: 62%;
-  display: flex; align-items: flex-start; justify-content: center;
-  gap: 14px;
-  padding: 16px 24px 8px;
+/* =====================================================
+   ОКНО (ночной город)
+   ===================================================== */
+.window-unit {
+  position: absolute; left: 4%; top: 7%;
+  width: 15%; min-width: 120px; max-width: 200px;
+  height: 78%; z-index: 3;
 }
-.desk-surface {
-  position: absolute; top: 0; left: 0; right: 0; height: 18px;
-  background: linear-gradient(180deg, var(--desk-top) 0%, var(--desk-color) 100%);
-  border-top: 2px solid #8a6030;
-  border-radius: 2px 2px 0 0;
-}
-
-/* ---- УСТРОЙСТВА (общие) ---- */
-.device {
-  position: relative;
-  cursor: pointer;
-  transition: transform 0.15s ease;
-  flex-shrink: 0;
-}
-.device:hover {
-  transform: translateY(-4px);
-}
-.device-label {
-  position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%);
-  font-size: 8px; letter-spacing: 2px; color: var(--text-dim); white-space: nowrap;
-}
-
-/* Активное устройство */
-.device.active {
-  transform: translateY(-8px) scale(1.08);
-  z-index: 10;
-}
-.device.active .monitor-screen,
-.device.active .fax-screen,
-.device.active .printer-led,
-.device.active .mobile-screen,
-.device.active .laptop-screen,
-.device.active .tablet-screen {
-  animation: device-flash 0.3s ease-in-out;
-}
-@keyframes device-flash {
-  0%, 100% { filter: brightness(1); }
-  50%       { filter: brightness(2.5); }
-}
-.device.active::after {
-  content: '';
-  position: absolute; inset: -6px;
-  border-radius: 8px;
-  animation: ring-pulse 0.6s ease-in-out;
-  pointer-events: none;
-}
-@keyframes ring-pulse {
-  0%   { box-shadow: 0 0 0 0 rgba(245,158,11,0.8); opacity: 1; }
-  100% { box-shadow: 0 0 0 20px rgba(245,158,11,0); opacity: 0; }
-}
-
-/* Клик-анимация */
-.device.clicked {
-  animation: device-click 0.2s ease;
-}
-@keyframes device-click {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(0.92); }
-  100% { transform: scale(1); }
-}
-
-/* Неверный клик */
-.device.wrong {
-  animation: device-wrong 0.4s ease;
-}
-@keyframes device-wrong {
-  0%, 100% { transform: translateX(0); }
-  25%       { transform: translateX(-6px); }
-  75%       { transform: translateX(6px); }
-}
-
-/* ---------- Красный монитор ---------- */
-.monitor-red { width: 90px; margin-top: 20px; }
-.monitor-blue { width: 90px; margin-top: 10px; }
-.monitor-green { width: 90px; margin-top: 15px; }
-
-.monitor-body {
-  width: 90px; height: 70px;
-  background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
-  border-radius: 6px 6px 0 0;
-  border: 3px solid #374151;
-  position: relative; overflow: hidden;
-}
-.monitor-stand {
-  width: 12px; height: 20px;
-  background: #374151;
-  margin: 0 auto;
-  position: relative;
-}
-.monitor-stand::after {
-  content: '';
-  position: absolute; bottom: 0; left: -12px; right: -12px; height: 4px;
-  background: #4b5563; border-radius: 2px;
-}
-.monitor-screen {
-  position: absolute; inset: 4px;
-  border-radius: 3px;
+.window-frame-inner {
+  position: absolute; inset: 0;
+  border: 5px solid #1e3248; border-radius: 3px;
+  box-shadow: 0 0 0 2px #0d1e30, 0 0 0 4px #1e3248;
   overflow: hidden;
-  transition: box-shadow 0.2s;
 }
-.red-screen {
-  background: linear-gradient(135deg, #1a0a0a 0%, #2d0606 100%);
-  box-shadow: inset 0 0 10px rgba(229,62,62,0.3);
+.window-glass {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, #091830 0%, #05101f 60%, #020608 100%);
+  overflow: hidden;
 }
-.blue-screen {
-  background: linear-gradient(135deg, #0a0f1a 0%, #06102d 100%);
-  box-shadow: inset 0 0 10px rgba(59,130,246,0.3);
+.city-bg {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 82%;
+  display: flex; align-items: flex-end; gap: 2px;
 }
-.green-screen {
-  background: linear-gradient(135deg, #001a0f 0%, #002d15 100%);
-  box-shadow: inset 0 0 10px rgba(16,185,129,0.3);
-}
-.device.active .red-screen   { box-shadow: inset 0 0 20px rgba(229,62,62,0.8), var(--glow-red); }
-.device.active .blue-screen  { box-shadow: inset 0 0 20px rgba(59,130,246,0.8), var(--glow-blue); }
-.device.active .green-screen { box-shadow: inset 0 0 20px rgba(16,185,129,0.8), var(--glow-green); }
-
-.screen-content { padding: 4px; }
-.alert-icon { font-size: 16px; text-align: center; color: var(--accent-red); animation: blink 1s infinite; }
-@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-.sline { height: 4px; background: rgba(229,62,62,0.5); margin-bottom: 3px; border-radius: 2px; }
-.s3 { width: 60%; }
-
-.chart-bars { display: flex; align-items: flex-end; gap: 3px; padding-top: 8px; height: 44px; }
-.bar {
-  flex: 1; background: rgba(59,130,246,0.6); border-radius: 2px 2px 0 0;
-  animation: bar-anim 2s ease-in-out infinite alternate;
-}
-.b1 { height: 30%; animation-delay: 0s; }
-.b2 { height: 70%; animation-delay: 0.3s; }
-.b3 { height: 50%; animation-delay: 0.6s; }
-.b4 { height: 90%; animation-delay: 0.9s; }
-@keyframes bar-anim { from { opacity: 0.6; } to { opacity: 1; } }
-
-.terminal-lines { padding: 2px; }
-.tline { font-size: 8px; color: var(--accent-green); font-family: monospace; animation: type-anim 3s linear infinite; }
-@keyframes type-anim { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-
-/* ---------- Факс ---------- */
-.fax-machine { width: 72px; margin-top: 30px; }
-.fax-body {
-  width: 72px; height: 80px;
-  background: linear-gradient(180deg, #d1d5db 0%, #9ca3af 100%);
-  border-radius: 6px;
-  border: 2px solid #6b7280;
-  position: relative; overflow: hidden;
-  padding: 6px;
-}
-.fax-slot {
-  width: 90%; height: 8px;
-  background: #374151; border-radius: 4px; margin: 0 auto 6px;
-}
-.fax-paper {
-  width: 70%; height: 16px;
-  background: white; margin: 0 auto 4px;
-  border-radius: 1px;
-  animation: paper-move 4s ease-in-out infinite;
-}
-@keyframes paper-move { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
-.fax-buttons { display: flex; gap: 4px; justify-content: center; margin-bottom: 4px; }
-.fb { width: 10px; height: 6px; background: #374151; border-radius: 2px; }
-.fax-screen { width: 80%; height: 18px; background: #1a4a1a; border-radius: 2px; margin: 0 auto; }
-.device.active .fax-body { box-shadow: var(--glow-gold); }
-.device.active .fax-paper { background: #fffde7; }
-
-/* ---------- Принтер ---------- */
-.printer { width: 80px; margin-top: 28px; }
-.printer-body {
-  width: 80px; height: 60px;
-  background: linear-gradient(180deg, #e5e7eb 0%, #9ca3af 100%);
-  border-radius: 6px;
-  border: 2px solid #6b7280;
-  position: relative; padding: 8px;
-}
-.printer-slot-top {
-  width: 60%; height: 10px;
-  background: #374151; border-radius: 3px; margin: 0 auto 4px;
-}
-.printer-paper-out {
-  width: 70%; height: 14px;
-  background: white; margin: 0 auto;
-  border-top: 1px solid #d1d5db;
-  animation: paper-out 3s ease-in-out infinite;
-}
-@keyframes paper-out { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(2px); } }
-.printer-led {
-  position: absolute; top: 8px; right: 10px;
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--accent-green);
-  box-shadow: 0 0 6px var(--accent-green);
-  animation: led-blink 2s ease-in-out infinite;
-}
-@keyframes led-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-.printer-button {
-  position: absolute; bottom: 8px; right: 10px;
-  width: 14px; height: 8px; border-radius: 4px;
-  background: #374151;
-}
-.device.active .printer-body { box-shadow: var(--glow-gold); }
-.device.active .printer-paper-out { animation: paper-print 0.3s linear infinite; }
-@keyframes paper-print { 0% { transform: translateY(-4px); } 100% { transform: translateY(4px); } }
-
-/* ---------- Стационарный телефон ---------- */
-.phone-desk { width: 70px; margin-top: 28px; }
-.phone-body {
-  width: 70px; height: 70px;
-  background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
-  border-radius: 6px;
-  border: 2px solid #374151;
-  position: relative; padding: 6px;
-}
-.phone-handset {
-  width: 90%; height: 18px;
-  background: linear-gradient(180deg, #374151 0%, #1f2937 100%);
-  border-radius: 4px; margin: 0 auto 6px;
+.city-build {
+  flex: 1; border-radius: 2px 2px 0 0;
+  background: linear-gradient(180deg, #0c1e30 0%, #060f1c 100%);
   position: relative;
 }
-.phone-handset::before, .phone-handset::after {
+.cb1 { height: 62%; }
+.cb2 { height: 88%; }
+.cb3 { height: 72%; flex: 1.5; }
+.cb4 { height: 55%; }
+.cb5 { height: 94%; flex: 0.8; }
+/* Огоньки зданий */
+.city-build::before {
   content: '';
-  position: absolute; top: 50%; transform: translateY(-50%);
-  width: 10px; height: 10px; border-radius: 50%;
-  background: #4b5563;
+  position: absolute; inset: 6% 8% 0;
+  background-image:
+    radial-gradient(circle at 30% 25%, rgba(251,191,36,0.5) 1px, transparent 2px),
+    radial-gradient(circle at 70% 25%, rgba(59,130,246,0.4) 1px, transparent 2px),
+    radial-gradient(circle at 20% 55%, rgba(251,191,36,0.3) 1px, transparent 2px),
+    radial-gradient(circle at 65% 65%, rgba(251,191,36,0.4) 1px, transparent 2px),
+    radial-gradient(circle at 80% 45%, rgba(59,130,246,0.3) 1px, transparent 2px);
+  background-size: 9px 9px;
 }
-.phone-handset::before { left: 2px; }
-.phone-handset::after  { right: 2px; }
-.phone-keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
-.pk { height: 8px; background: #374151; border-radius: 2px; }
-.phone-cord {
-  position: absolute; bottom: -10px; left: 8px;
-  width: 3px; height: 14px;
-  background: repeating-linear-gradient(180deg, #374151 0px, #374151 4px, #1f2937 4px, #1f2937 6px);
+.win-cross-h {
+  position: absolute; top: 50%; left: 0; right: 0; height: 4px;
+  background: #1e3248; transform: translateY(-50%);
+}
+.win-cross-v {
+  position: absolute; top: 0; bottom: 0; left: 50%; width: 4px;
+  background: #1e3248; transform: translateX(-50%);
+}
+.window-sill-top {
+  position: absolute; top: -7px; left: -9px; right: -9px; height: 9px;
+  background: linear-gradient(180deg, #1e3248 0%, #152a3e 100%);
   border-radius: 2px;
 }
-.device.active .phone-body { box-shadow: var(--glow-gold); }
-.device.active .phone-handset { animation: ring-shake 0.15s linear infinite; }
-@keyframes ring-shake { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(-5deg); } 75% { transform: rotate(5deg); } }
+.window-curtain {
+  position: absolute; top: -5px; bottom: -5px; width: 18%;
+  z-index: 4;
+}
+.wcl { left: -16%; background: linear-gradient(90deg, #161628 0%, #101025 60%, transparent 100%); }
+.wcr { right: -16%; background: linear-gradient(270deg, #161628 0%, #101025 60%, transparent 100%); }
 
-/* ---------- Мобильный телефон ---------- */
-.phone-mobile { width: 40px; margin-top: 22px; }
-.mobile-body {
-  width: 40px; height: 80px;
-  background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
-  border-radius: 10px;
-  border: 3px solid #374151;
+/* =====================================================
+   МАРКЕРНАЯ ДОСКА
+   ===================================================== */
+.whiteboard {
+  position: absolute; left: 27%; top: 5%;
+  width: 25%; min-width: 175px; max-width: 290px;
+  height: 77%; z-index: 3;
+}
+.wb-frame {
+  position: absolute; inset: 0;
+  background: #eae8e0;
+  border: 5px solid #8b7355;
+  border-radius: 3px;
+  box-shadow: 0 0 0 2px #6b5335, 3px 5px 16px rgba(0,0,0,0.5);
+  overflow: hidden;
+  padding: 7px 9px;
+}
+.wb-header {
+  font-size: 9px; letter-spacing: 2px; font-weight: 700;
+  color: #c0392b;
+  border-bottom: 1px solid rgba(0,0,0,0.18); padding-bottom: 4px; margin-bottom: 5px;
+}
+.wb-body { display: flex; flex-direction: column; gap: 5px; }
+.wb-line {
+  height: 3px; border-radius: 1px;
+  background: rgba(0,0,0,0.18);
+}
+.wl1 { width: 88%; }
+.wl2 { width: 62%; background: rgba(180,40,40,0.5); }
+.wl3 { width: 78%; }
+.wb-nodes {
+  display: flex; align-items: center; gap: 5px; margin-top: 7px;
+}
+.wbn {
+  width: 22px; height: 22px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: white; flex-shrink: 0;
+}
+.n-red    { background: rgba(220,50,50,0.8); }
+.n-yellow { background: rgba(220,170,40,0.8); }
+.n-green  { background: rgba(40,160,80,0.8); }
+.wbn-arrow { font-size: 9px; color: rgba(0,0,0,0.35); flex-shrink: 0; }
+.wb-tray {
+  position: absolute; bottom: -7px; left: 8%; right: 8%; height: 9px;
+  background: #8b7355; border-radius: 0 0 4px 4px;
+  display: flex; gap: 4px; align-items: center; padding: 1px 8px;
+}
+.wb-marker {
+  width: 20px; height: 5px;
+  background: linear-gradient(90deg, #e74c3c 0%, #c0392b 100%);
+  border-radius: 2px;
+}
+.wb-marker:last-child { background: linear-gradient(90deg, #3498db 0%, #2980b9 100%); }
+
+/* =====================================================
+   НАСТЕННЫЕ ЧАСЫ
+   ===================================================== */
+.wall-clock {
+  position: absolute; right: 22%; top: 9%;
+  width: 66px; height: 66px; z-index: 3;
+}
+.wc-rim {
+  width: 66px; height: 66px; border-radius: 50%;
+  background: linear-gradient(135deg, #2d3f55 0%, #1a2535 100%);
+  border: 3px solid #4b5563;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.08);
   position: relative; overflow: hidden;
 }
-.mobile-screen {
-  position: absolute; top: 4px; left: 4px; right: 4px; bottom: 14px;
-  background: #0a0f1a;
-  border-radius: 6px;
+.wc-face {
+  position: absolute; inset: 4px; border-radius: 50%;
+  background: radial-gradient(circle at 38% 32%, #1f2d3e 0%, #0d1826 100%);
 }
-.mobile-notch {
-  width: 16px; height: 6px;
-  background: #111827; border-radius: 3px;
-  margin: 4px auto;
+.wc-tick {
+  position: absolute; background: var(--text-dim); border-radius: 2px;
+  left: 50%; transform-origin: center bottom;
 }
-.mobile-content {
+.t12 { width: 2px; height: 7px; top: 3px; transform: translateX(-50%); }
+.t3  { width: 7px; height: 2px; right: 3px; top: 50%; transform: translateY(-50%); }
+.t6  { width: 2px; height: 7px; bottom: 3px; transform: translateX(-50%); left: 50%; }
+.t9  { width: 7px; height: 2px; left: 3px; top: 50%; transform: translateY(-50%); }
+.wc-hand {
+  position: absolute; left: 50%; bottom: 50%;
+  background: var(--text-main); border-radius: 2px;
+  transform-origin: bottom center;
+}
+.wc-hand.hour-hand   { width: 3px; height: 18px; transform: translateX(-50%) rotate(150deg); }
+.wc-hand.minute-hand { width: 2px; height: 24px; background: var(--accent-gold); transform: translateX(-50%) rotate(300deg); }
+.wc-dot {
+  position: absolute; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 5px; height: 5px; border-radius: 50%; background: var(--accent-gold);
+}
+
+/* =====================================================
+   СТЕЛЛАЖ С ПАПКАМИ (левый угол стены)
+   ===================================================== */
+.wall-shelf {
+  position: absolute; left: 2%; top: 7%;
+  width: 7%; min-width: 52px; max-width: 80px;
+  height: 80%; z-index: 3;
+}
+.ws-bracket {
+  position: absolute; top: 0; right: 0; bottom: 0; width: 7px;
+  background: linear-gradient(90deg, #2d3f55 0%, #1a2535 100%);
+  border-radius: 3px;
+}
+.ws-plank {
+  position: absolute; left: -5px; right: 0; height: 9px;
+  background: linear-gradient(180deg, #5c3720 0%, #3d250e 100%);
+  border-radius: 2px; box-shadow: 0 3px 7px rgba(0,0,0,0.45);
+}
+.top-plank { top: 14%; }
+.bot-plank { top: 56%; }
+.binders {
+  position: absolute; left: -5px; right: 5px; top: 16%; height: 38%;
+  display: flex; align-items: flex-end; gap: 2px;
+}
+.bd { flex: 1; height: 88%; border-radius: 1px 1px 0 0; box-shadow: inset -2px 0 rgba(0,0,0,0.2); }
+.bd-r { background: linear-gradient(180deg, #c0392b 0%, #922b21 100%); }
+.bd-b { background: linear-gradient(180deg, #2980b9 0%, #1a5276 100%); }
+.bd-g { background: linear-gradient(180deg, #27ae60 0%, #1e8449 100%); }
+.bd-y { background: linear-gradient(180deg, #f39c12 0%, #b7770d 100%); }
+
+/* =====================================================
+   РАСТЕНИЕ В УГЛУ
+   ===================================================== */
+.corner-plant {
+  position: absolute; right: 0; bottom: 58%; z-index: 4;
+}
+.cp-pot {
+  width: 34px; height: 30px;
+  background: linear-gradient(180deg, #7c5233 0%, #5c3d1e 100%);
+  border-radius: 2px 2px 7px 7px;
+  border: 1px solid #8a6030; border-top: 4px solid #9a7040;
+  overflow: hidden; position: relative;
+}
+.cp-soil {
+  position: absolute; top: 0; left: 0; right: 0; height: 7px;
+  background: #2d1e0e;
+}
+.cp-leaves { font-size: 38px; position: absolute; bottom: 22px; right: 0; line-height: 1; filter: saturate(0.8) brightness(0.88); }
+
+/* =====================================================
+   ТУМБА С ПРИНТЕРОМ И ФАКСОМ (правая сторона)
+   ===================================================== */
+.side-cabinet {
+  position: absolute; right: 20px; top: 34%;
+  width: 175px; z-index: 6;
+  display: flex; flex-direction: column; align-items: stretch;
+}
+.sc-top-surface {
+  height: 11px;
+  background: linear-gradient(180deg, #a08060 0%, #7a6040 100%);
+  border-radius: 3px 3px 0 0;
+  box-shadow: 0 -1px 0 #c0a070;
+  flex-shrink: 0;
+}
+.sc-body {
+  background: linear-gradient(180deg, #3e3620 0%, #2c2416 100%);
+  border: 1px solid #4a3e28; border-top: none;
+  padding: 6px;
+  display: flex; flex-direction: column; gap: 5px;
+  border-radius: 0 0 4px 4px;
+  flex-shrink: 0;
+}
+.sc-drawer {
+  height: 26px;
+  background: linear-gradient(180deg, #4a3e28 0%, #3a300c0 100%);
+  border: 1px solid #5a4e38; border-radius: 2px;
+  position: relative;
+}
+.sc-drawer::after {
+  content: '';
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  width: 22px; height: 4px; background: #6b5e45; border-radius: 2px;
+}
+/* Принтер и факс располагаются внутри side-cabinet как flex-элементы */
+.side-cabinet .device.printer   { order: -2; padding: 0 0 4px 0; }
+.side-cabinet .device.fax-machine { order: -1; padding: 0 0 4px 0; }
+
+/* =====================================================
+   ОФИСНОЕ КРЕСЛО (видно из-за стола, снизу)
+   ===================================================== */
+.office-chair {
+  position: absolute; left: 22%; bottom: 1%;
+  width: 115px; z-index: 3;
+}
+.oc-back {
+  width: 92px; height: 75px;
+  background: linear-gradient(180deg, #1c1c30 0%, #141428 100%);
+  border: 2px solid #2d2d50; border-radius: 9px 9px 0 0;
+  margin: 0 auto; box-shadow: 0 -6px 14px rgba(0,0,0,0.45);
+  position: relative;
+}
+.oc-headrest {
+  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+  width: 52px; height: 15px;
+  background: linear-gradient(180deg, #242440 0%, #1c1c30 100%);
+  border: 2px solid #2d2d50; border-radius: 7px;
+}
+.oc-lumbar {
+  position: absolute; bottom: 10px; left: 9px; right: 9px; height: 13px;
+  background: rgba(45,45,80,0.45); border-radius: 5px; border: 1px solid #3d3d60;
+}
+.oc-arm {
+  position: absolute; bottom: -4px; height: 32px; width: 15px;
+  background: linear-gradient(180deg, #2d2d50 0%, #1c1c30 100%);
+  border: 1px solid #3d3d60; border-radius: 5px;
+}
+.oc-arm-l { left: -6px; }
+.oc-arm-r { right: -6px; }
+.oc-seat {
+  width: 104px; height: 20px;
+  background: linear-gradient(180deg, #1c1c30 0%, #141428 100%);
+  border: 2px solid #2d2d50; border-radius: 4px;
+  margin: 0 auto; box-shadow: 0 5px 12px rgba(0,0,0,0.45);
+}
+.oc-column {
+  width: 9px; height: 32px;
+  background: linear-gradient(90deg, #4b5563, #374151);
+  margin: 0 auto; border-radius: 2px;
+}
+.oc-base {
+  position: relative; width: 110px; height: 14px; margin: 0 auto;
+}
+.oc-leg {
+  position: absolute; top: 0; left: 50%; width: 3px; height: 14px;
+  background: #374151; border-radius: 0 0 2px 2px; transform-origin: top center;
+}
+.oc-leg:nth-child(1){ transform:translateX(-50%) rotate(0deg);}
+.oc-leg:nth-child(2){ transform:translateX(-50%) rotate(72deg);}
+.oc-leg:nth-child(3){ transform:translateX(-50%) rotate(144deg);}
+.oc-leg:nth-child(4){ transform:translateX(-50%) rotate(216deg);}
+.oc-leg:nth-child(5){ transform:translateX(-50%) rotate(288deg);}
+
+/* =====================================================
+   ГЛАВНЫЙ РАБОЧИЙ СТОЛ
+   ===================================================== */
+.main-desk {
+  position: absolute;
+  left: 0; right: 205px;
+  top: 38%; height: 35%;
+  z-index: 5;
+  overflow: visible; /* мониторы выходят вверх */
+}
+
+/* Поверхность стола — вид «сверху-спереди» */
+.desk-top-surface {
+  position: absolute; top: 0; left: 0; right: 0; height: 64%;
+  background:
+    linear-gradient(180deg, #3d2009 0%, #5c3114 35%, #6b3c18 60%, #4e2a10 100%);
+  border-top: 2px solid #9a5832;
+  box-shadow: 0 -5px 24px rgba(0,0,0,0.5);
+  overflow: visible;
+}
+/* Блик на поверхности */
+.desk-top-surface::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 30%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.045) 0%, transparent 100%);
+  pointer-events: none; z-index: 1;
+}
+/* Текстура дерева */
+.desk-top-surface::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(
+    93deg,
+    transparent 0px, transparent 12px,
+    rgba(0,0,0,0.05) 12px, rgba(0,0,0,0.05) 13px
+  );
+  pointer-events: none;
+}
+
+/* Передняя грань стола (видимая доска спереди) */
+.desk-front-face {
+  position: absolute; top: 64%; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, #3a1e08 0%, #261205 100%);
+  border-top: 1px solid #5c3114;
+  border-bottom: 4px solid #180b03;
+  display: flex; align-items: center; padding: 0 55px; gap: 35px;
+}
+.dff-drawer {
+  flex: 1; height: 52%; max-height: 40px;
+  background: linear-gradient(180deg, #3d2009 0%, #2e1807 100%);
+  border: 1px solid #5c3114; border-radius: 2px;
   display: flex; align-items: center; justify-content: center;
-  height: 50px;
 }
+.dff-knob {
+  width: 20px; height: 7px;
+  background: linear-gradient(90deg, #907050 0%, #c0a070 50%, #907050 100%);
+  border-radius: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.45);
+}
+.dff-side {
+  position: absolute; right: 0; top: 0; bottom: 0; width: 15px;
+  background: linear-gradient(90deg, #2a1506 0%, #1c0d03 100%);
+  border-left: 1px solid #3a1e08;
+}
+
+/* =====================================================
+   МОНИТОРЫ — стоят на столе, экраны возвышаются
+   ===================================================== */
+.device.monitor-red,
+.device.monitor-blue,
+.device.monitor-green {
+  position: absolute;
+  display: flex; flex-direction: column; align-items: center;
+  bottom: 64%; /* база на уровне поверхности стола */
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  z-index: 12;
+  overflow: visible;
+}
+.device.monitor-red   { left: 6%; }
+.device.monitor-blue  { left: 37%; }
+.device.monitor-green { left: 65%; }
+.device.monitor-red:hover   { transform: translateY(-7px); }
+.device.monitor-blue:hover  { transform: translateY(-7px); }
+.device.monitor-green:hover { transform: translateY(-7px); }
+
+/* Корпус + экран */
+.mon-body { display: flex; flex-direction: column; }
+.monitor-blue  .mon-body { width: 170px; }
+.monitor-red   .mon-body { width: 128px; }
+.monitor-green .mon-body { width: 128px; }
+
+/* Рамка (bezel) */
+.mon-bezel {
+  background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+  border: 4px solid #374151;
+  border-radius: 8px 8px 0 0;
+  padding: 5px 5px 0;
+  box-shadow: 0 -3px 10px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+/* Подбородок монитора */
+.mon-chin {
+  height: 15px;
+  background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+  border: 4px solid #374151; border-top: none;
+  border-radius: 0 0 6px 6px;
+  position: relative;
+}
+.mon-chin::after {
+  content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  width: 22px; height: 3px; background: #374151; border-radius: 2px;
+}
+/* Экраны */
+.monitor-screen {
+  display: block; overflow: hidden; border-radius: 2px; transition: box-shadow 0.25s;
+}
+.monitor-blue  .monitor-screen { width: 158px; height: 108px; }
+.monitor-red   .monitor-screen { width: 116px; height: 76px; }
+.monitor-green .monitor-screen { width: 116px; height: 76px; }
+
+.red-screen   { background: linear-gradient(135deg,#160404 0%,#2a0505 100%); box-shadow: inset 0 0 15px rgba(229,62,62,0.22); }
+.blue-screen  { background: linear-gradient(135deg,#040810 0%,#050e28 100%); box-shadow: inset 0 0 15px rgba(59,130,246,0.22); }
+.green-screen { background: linear-gradient(135deg,#020f05 0%,#032808 100%); box-shadow: inset 0 0 15px rgba(16,185,129,0.22); }
+
+.device.active .red-screen   { box-shadow: inset 0 0 35px rgba(229,62,62,0.9),  0 0 35px rgba(229,62,62,0.6); }
+.device.active .blue-screen  { box-shadow: inset 0 0 35px rgba(59,130,246,0.9),  0 0 35px rgba(59,130,246,0.6); }
+.device.active .green-screen { box-shadow: inset 0 0 35px rgba(16,185,129,0.9),  0 0 35px rgba(16,185,129,0.6); }
+
+/* Верхняя строка OS-стиль */
+.sc-topbar { display: flex; gap: 3px; padding: 3px 4px 2px; }
+.sc-dot { width: 5px; height: 5px; border-radius: 50%; }
+.d-r { background: #ff5f56; } .d-y { background: #febc2e; } .d-g { background: #28c840; }
+
+/* Подставка монитора */
+.mon-stand { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.mon-neck {
+  background: linear-gradient(90deg, #374151 0%, #4b5563 50%, #374151 100%);
+  border-radius: 2px;
+}
+.monitor-blue  .mon-neck { width: 12px; height: 32px; }
+.monitor-red   .mon-neck,
+.monitor-green .mon-neck { width: 10px; height: 26px; }
+.mon-base {
+  height: 11px; border-radius: 7px;
+  background: linear-gradient(180deg, #4b5563 0%, #1f2937 100%);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.04);
+}
+.monitor-blue  .mon-base { width: 95px; }
+.monitor-red   .mon-base,
+.monitor-green .mon-base { width: 72px; }
+
+/* Контент экранов */
+.screen-content { padding: 0 4px 4px; }
+.alert-icon { font-size: 20px; text-align: center; color: var(--accent-red); animation: blink 0.9s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.15} }
+.screen-lines { display: flex; flex-direction: column; gap: 3px; margin-top: 3px; }
+.sline { height: 3px; background: rgba(229,62,62,0.4); border-radius: 2px; }
+.s3 { width: 60%; }
+
+/* Гистограммы */
+.chart-bars { display: flex; align-items: flex-end; gap: 4px; height: 64px; padding: 4px 4px 2px; }
+.bar {
+  flex: 1; border-radius: 2px 2px 0 0;
+  background: linear-gradient(180deg, rgba(59,130,246,0.9) 0%, rgba(37,99,235,0.5) 100%);
+  animation: bar-anim 2s ease-in-out infinite alternate;
+}
+.b1{height:32%;animation-delay:0s} .b2{height:74%;animation-delay:.2s}
+.b3{height:52%;animation-delay:.4s} .b4{height:92%;animation-delay:.6s}
+.b5{height:44%;animation-delay:.8s}
+@keyframes bar-anim { from{opacity:0.65} to{opacity:1} }
+.chart-label { font-size:7px; color:rgba(59,130,246,0.55); letter-spacing:1px; text-align:right; padding:0 4px; }
+
+/* Терминал */
+.terminal-lines { padding: 3px 4px; display: flex; flex-direction: column; gap: 2px; }
+.tline { font-size: 7px; color: var(--accent-green); font-family: monospace; line-height: 1.5; }
+.tl-blink { animation: tbl 0.8s step-end infinite; }
+@keyframes tbl { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* =====================================================
+   УСТРОЙСТВА НА СТОЛЕ (внутри .desk-top-surface)
+   ===================================================== */
+.desk-top-surface { position: relative; }
+
+/* ---- Стационарный телефон (левая часть стола) ---- */
+.device.phone-desk {
+  position: absolute; left: 4%; bottom: 12px;
+  cursor: pointer; transition: transform 0.15s; z-index: 13;
+}
+.device.phone-desk:hover { transform: translateY(-5px); }
+.phone-body {
+  width: 74px; height: 82px;
+  background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+  border-radius: 6px; border: 2px solid #374151;
+  padding: 6px; position: relative;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.55), 0 1px 0 rgba(255,255,255,0.04);
+}
+.phone-handset {
+  width: 100%; height: 19px;
+  background: linear-gradient(180deg, #374151 0%, #1f2937 100%);
+  border-radius: 5px; margin-bottom: 5px; position: relative;
+}
+.phone-handset::before,.phone-handset::after {
+  content:''; position:absolute; top:50%; transform:translateY(-50%);
+  width:12px; height:12px; border-radius:50%; background:#4b5563;
+}
+.phone-handset::before{left:1px;} .phone-handset::after{right:1px;}
+.phone-keypad { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
+.pk { height:8px; background:#374151; border-radius:2px; }
+.phone-display {
+  width:100%; height:16px; background:#0f2010;
+  border-radius:2px; margin-top:4px;
+  box-shadow: inset 0 0 6px rgba(16,185,129,0.35);
+}
+.device.active .phone-body { box-shadow: 0 0 24px rgba(245,158,11,0.65), 0 5px 12px rgba(0,0,0,0.55); }
+.device.active .phone-handset { animation: ring-shake 0.11s linear infinite; }
+@keyframes ring-shake { 0%,100%{transform:rotate(0)} 25%{transform:rotate(-7deg)} 75%{transform:rotate(7deg)} }
+
+/* ---- Клавиатура + мышь (декор) ---- */
+.keyboard-decor {
+  position: absolute; left: 22%; bottom: 8px;
+  display: flex; align-items: flex-end; gap: 9px;
+  pointer-events: none; z-index: 10;
+}
+.kd-kb {
+  width: 115px; height: 40px;
+  background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+  border: 2px solid #374151; border-radius: 6px;
+  padding: 6px 7px; display: flex; flex-direction: column; gap: 4px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.45);
+}
+.kd-row {
+  height: 5px;
+  background: repeating-linear-gradient(90deg,#374151 0px,#374151 5px,#1f2937 5px,#1f2937 7px);
+  border-radius: 2px;
+}
+.kd-space { height:5px; background:linear-gradient(180deg,#374151,#2d3748); border-radius:2px; width:58%; align-self:center; }
+.kd-mouse {
+  width: 30px; height: 44px;
+  background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
+  border: 2px solid #374151; border-radius: 15px 15px 10px 10px;
+  position: relative; box-shadow: 0 4px 10px rgba(0,0,0,0.45);
+}
+.kd-mouse::before {
+  content:''; position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:1px; height:42%; background:#374151;
+}
+
+/* ---- Мобильный телефон (лежит на столе) ---- */
+.device.phone-mobile {
+  position: absolute; left: 34%; bottom: 8px;
+  cursor: pointer; transition: transform 0.15s; z-index: 13;
+}
+.device.phone-mobile:hover { transform: translateY(-5px) rotate(-6deg); }
+.mobile-body {
+  width: 40px; height: 78px;
+  background: linear-gradient(180deg, #111827 0%, #0a0e1a 100%);
+  border-radius: 10px; border: 3px solid #374151;
+  position: relative; overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.65), 0 1px 0 rgba(255,255,255,0.04);
+}
+.mobile-screen {
+  position: absolute; top: 5px; left: 3px; right: 3px; bottom: 13px;
+  background: #0a0f1a; border-radius: 6px;
+}
+.mobile-notch { width: 14px; height: 5px; background: #0a0e1a; border-radius: 0 0 6px 6px; margin: 0 auto 4px; }
+.mobile-content { display:flex; flex-direction:column; align-items:center; gap:3px; }
 .alert-dot {
-  width: 16px; height: 16px; border-radius: 50%;
-  background: var(--accent-red);
-  box-shadow: 0 0 8px var(--accent-red);
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--accent-red); box-shadow: 0 0 10px var(--accent-red);
   animation: dot-pulse 1.5s ease-in-out infinite;
 }
-@keyframes dot-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+@keyframes dot-pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
+.mobile-text-lines { display:flex; flex-direction:column; gap:2px; align-self:stretch; padding:0 3px; }
+.mtl { height:2px; background:rgba(255,255,255,0.14); border-radius:1px; }
 .mobile-button {
-  position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%);
-  width: 16px; height: 8px; border-radius: 4px;
-  background: #374151;
+  position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%);
+  width: 15px; height: 9px; border-radius: 5px; background: #374151;
 }
-.device.active .mobile-body { box-shadow: var(--glow-gold); }
-.device.active .alert-dot { background: #fbbf24; box-shadow: 0 0 16px #fbbf24; }
+.device.active .mobile-body { box-shadow: 0 0 28px rgba(245,158,11,0.7), 0 6px 18px rgba(0,0,0,0.65); }
+.device.active .alert-dot { background: #fbbf24; box-shadow: 0 0 18px #fbbf24; animation: none; }
 
-/* ---------- Ноутбук ---------- */
-.laptop { width: 100px; margin-top: 8px; }
+/* ---- Ноутбук открытый ---- */
+.device.laptop {
+  position: absolute; left: 47%; bottom: 2px;
+  cursor: pointer; transition: transform 0.15s; z-index: 13;
+}
+.device.laptop:hover { transform: translateY(-6px); }
 .laptop-lid {
-  width: 100px; height: 65px;
-  background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
-  border-radius: 6px 6px 0 0;
+  width: 124px; height: 84px;
+  background: linear-gradient(180deg, #1a2030 0%, #111827 100%);
+  border-radius: 8px 8px 0 0;
   border: 3px solid #374151;
   position: relative;
-  transform-origin: bottom;
-  transform: perspective(300px) rotateX(-10deg);
+  transform: perspective(450px) rotateX(-10deg);
+  transform-origin: bottom center;
+  box-shadow: 0 -5px 14px rgba(0,0,0,0.45);
 }
 .laptop-screen {
   position: absolute; inset: 4px;
-  background: #020408;
-  border-radius: 3px;
+  background: #020408; border-radius: 4px; overflow: hidden;
 }
-.laptop-content {
-  display: flex; align-items: center; justify-content: center; height: 100%;
+.laptop-hinge {
+  position: absolute; bottom: -3px; left: 0; right: 0; height: 5px;
+  background: linear-gradient(90deg, #374151, #4b5563, #374151);
 }
-.l-icon { font-size: 20px; }
+.laptop-content { height: 100%; display: flex; flex-direction: column; }
+.ls-topbar {
+  display:flex; gap:3px; padding:3px 4px;
+  background:rgba(255,255,255,0.03);
+  border-bottom:1px solid rgba(255,255,255,0.05);
+}
+.ls-dot { width:5px; height:5px; border-radius:50%; background:#374151; }
+.ls-code { padding:4px; display:flex; flex-direction:column; gap:3px; }
+.lsc-line { height:3px; border-radius:2px; background:linear-gradient(90deg,rgba(59,130,246,0.55) 0%,rgba(59,130,246,0.2) 100%); }
+.lsc-short { width:58%; background:linear-gradient(90deg,rgba(16,185,129,0.55) 0%,rgba(16,185,129,0.2) 100%); }
 .laptop-base {
-  width: 100px; height: 12px;
-  background: linear-gradient(180deg, #374151 0%, #1f2937 100%);
-  border-radius: 0 0 4px 4px;
-  border: 2px solid #4b5563;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
-  padding: 2px;
+  width: 124px; height: 15px;
+  background: linear-gradient(180deg, #2d3748 0%, #1f2937 100%);
+  border-radius: 0 0 5px 5px;
+  border: 2px solid #374151; border-top: none;
+  padding: 3px 9px;
+  display: flex; flex-direction: column; gap: 2px;
 }
-.laptop-keyboard {
-  width: 80%; height: 4px;
-  background: repeating-linear-gradient(90deg, #4b5563 0px, #4b5563 4px, #374151 4px, #374151 6px);
+.lb-keyboard {
+  flex: 1;
+  background: repeating-linear-gradient(90deg,#374151 0px,#374151 5px,#2d3748 5px,#2d3748 7px);
   border-radius: 1px;
 }
-.laptop-touchpad {
-  width: 30%; height: 3px;
-  background: #4b5563; border-radius: 1px; margin-top: 1px;
-}
-.device.active .laptop-lid  { box-shadow: var(--glow-blue); }
-.device.active .laptop-screen { background: #0a0f2a; }
-.device.active .l-icon { animation: spin 0.5s linear; }
-@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.lb-touchpad { height:3px; width:28%; align-self:center; background:#374151; border-radius:2px; }
+.device.active .laptop-lid   { box-shadow: 0 0 24px rgba(59,130,246,0.55); }
+.device.active .laptop-screen { background: #040a20; }
+.device.active .ls-dot { background: #3b82f6; box-shadow: 0 0 6px #3b82f6; }
 
-/* ---------- Планшет ---------- */
-.tablet { width: 60px; margin-top: 14px; }
+/* ---- Планшет (лежит справа на столе) ---- */
+.device.tablet {
+  position: absolute; right: 6%; bottom: 6px;
+  cursor: pointer; transition: transform 0.15s; z-index: 13;
+}
+.device.tablet:hover { transform: translateY(-5px) rotate(4deg); }
 .tablet-body {
-  width: 60px; height: 85px;
-  background: linear-gradient(180deg, #1f2937 0%, #111827 100%);
-  border-radius: 8px;
-  border: 3px solid #374151;
-  position: relative; padding: 6px 4px;
+  width: 70px; height: 92px;
+  background: linear-gradient(180deg, #111827 0%, #0a0e1a 100%);
+  border-radius: 8px; border: 3px solid #374151;
+  padding: 5px 4px; position: relative;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.65);
 }
-.tablet-screen {
-  width: 100%; height: 62px;
-  background: #020408; border-radius: 4px;
-  overflow: hidden;
-}
-.tablet-content { padding: 4px; height: 100%; display: flex; align-items: center; }
-.t-graph { width: 100%; height: 100%; position: relative; }
+.tablet-screen { width:100%; height:74px; background:#040810; border-radius:4px; overflow:hidden; }
+.tablet-content { padding:4px; height:100%; }
+.t-graph { width:100%; height:100%; position:relative; }
 .tg-line {
-  position: absolute; left: 0; right: 0;
-  height: 2px; background: var(--accent-green);
-  top: 50%;
-  clip-path: polygon(0 50%, 20% 20%, 40% 70%, 60% 10%, 80% 60%, 100% 30%, 100% 100%, 0 100%);
+  position:absolute; left:2px; right:2px; top:50%; height:2px;
+  background:var(--accent-green);
+  clip-path:polygon(0 50%,15% 20%,30% 70%,45% 10%,60% 60%,75% 30%,90% 50%,100% 20%,100% 100%,0 100%);
 }
-.tablet-home {
-  width: 16px; height: 16px; border-radius: 50%;
-  border: 2px solid #374151;
-  margin: 4px auto 0;
+.tg-dots { display:flex; justify-content:space-around; margin-top:-4px; }
+.tgd { width:4px; height:4px; border-radius:50%; background:var(--accent-green); box-shadow:0 0 4px var(--accent-green); }
+.tablet-home { width:14px; height:14px; border-radius:50%; border:2px solid #374151; margin:3px auto 0; }
+.device.active .tablet-body { box-shadow: 0 0 24px rgba(16,185,129,0.55), 0 6px 18px rgba(0,0,0,0.65); }
+.device.active .tg-line { background:#34d399; box-shadow:0 0 8px #34d399; }
+
+/* ---- Принтер на тумбе ---- */
+.device.printer { cursor: pointer; transition: transform 0.15s; }
+.device.printer:hover { transform: translateY(-4px); }
+.printer-body {
+  width: 165px; height: 64px;
+  background: linear-gradient(180deg, #e5e7eb 0%, #9ca3af 100%);
+  border-radius: 7px; border: 2px solid #6b7280;
+  padding: 8px; position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.45);
 }
-.device.active .tablet-body { box-shadow: var(--glow-green); }
-.device.active .tg-line { background: #34d399; box-shadow: 0 0 8px #34d399; }
+.printer-slot-top {
+  width: 72%; height: 10px;
+  background: #374151; border-radius: 3px; margin: 0 auto 5px;
+}
+.printer-paper-out {
+  width: 76%; height: 14px; background: white; margin: 0 auto;
+  border-top: 1px solid #d1d5db;
+  animation: paper-out 3s ease-in-out infinite;
+}
+@keyframes paper-out { 0%,100%{transform:translateY(0)} 50%{transform:translateY(2px)} }
+.printer-led {
+  position: absolute; top: 8px; right: 11px;
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent-green); box-shadow: 0 0 6px var(--accent-green);
+  animation: led-blink 2s ease-in-out infinite;
+}
+@keyframes led-blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.printer-button {
+  position: absolute; bottom: 8px; right: 11px;
+  width: 14px; height: 8px; border-radius: 4px; background: #374151;
+}
+.device.active .printer-body { box-shadow: 0 0 24px rgba(245,158,11,0.65), 0 4px 12px rgba(0,0,0,0.45); }
+
+/* ---- Факс на тумбе ---- */
+.device.fax-machine { cursor: pointer; transition: transform 0.15s; }
+.device.fax-machine:hover { transform: translateY(-4px); }
+.fax-body {
+  width: 155px; height: 88px;
+  background: linear-gradient(180deg, #d1d5db 0%, #9ca3af 100%);
+  border-radius: 7px; border: 2px solid #6b7280;
+  padding: 7px; position: relative;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+}
+.fax-slot  { width:90%; height:9px; background:#374151; border-radius:4px; margin:0 auto 5px; }
+.fax-paper { width:70%; height:16px; background:white; margin:0 auto 4px; border-radius:1px; animation:paper-move 4s ease-in-out infinite; }
+@keyframes paper-move { 0%,100%{transform:translateY(0)} 50%{transform:translateY(3px)} }
+.fax-buttons { display:flex; gap:3px; justify-content:center; margin-bottom:4px; }
+.fb { width:10px; height:6px; background:#374151; border-radius:2px; }
+.fax-screen { width:80%; height:19px; background:#1a4a1a; border-radius:2px; margin:0 auto; box-shadow:inset 0 0 5px rgba(16,185,129,0.35); }
+.device.active .fax-body { box-shadow: 0 0 24px rgba(245,158,11,0.65), 0 4px 12px rgba(0,0,0,0.45); }
+
+/* ---- Декор на столе: бумаги ---- */
+.desk-papers {
+  position: absolute; left: 56%; bottom: 16px;
+  pointer-events: none; z-index: 10;
+}
+.dp-sheet {
+  width: 54px; height: 70px;
+  background: #e8e4d8; border: 1px solid #d0ccc0;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.35);
+  position: absolute;
+}
+.dp1 { transform: rotate(-5deg); }
+.dp2 { transform: rotate(3deg) translate(7px,5px); background: #f0ece0; }
+
+/* ---- Декор: кофе ---- */
+.desk-coffee {
+  position: absolute; left: 14.5%; bottom: 15px;
+  pointer-events: none; z-index: 10;
+}
+.dc-cup {
+  width: 26px; height: 28px;
+  background: linear-gradient(180deg,#1f2937 0%,#111827 100%);
+  border: 2px solid #374151; border-radius: 2px 2px 5px 5px;
+  position: relative;
+}
+.dc-cup::after {
+  content:''; position:absolute; right:-9px; top:50%; transform:translateY(-50%);
+  width:9px; height:13px; border:2px solid #374151; border-left:none; border-radius:0 6px 6px 0;
+}
+.dc-steam {
+  position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+  width:14px; height:12px;
+}
+.dc-steam::before,.dc-steam::after {
+  content:''; position:absolute; width:2px; height:9px;
+  background:rgba(255,255,255,0.14); border-radius:2px;
+  animation:steam 2s ease-in-out infinite;
+}
+.dc-steam::before{left:2px;animation-delay:0s;} .dc-steam::after{right:2px;animation-delay:0.5s;}
+@keyframes steam { 0%{transform:translateY(0) scaleX(1);opacity:0.4} 50%{transform:translateY(-5px) scaleX(1.3);opacity:0.15} 100%{transform:translateY(-10px) scaleX(0.8);opacity:0} }
+
+/* ---- Декор: табличка с должностью ---- */
+.desk-nameplate {
+  position: absolute; left: 16%; bottom: 1px;
+  pointer-events: none; z-index: 10;
+}
+.dn-text {
+  font-size: 7px; letter-spacing: 2px; color: #8a7060;
+  background: linear-gradient(90deg,#3a2810,#5c4020,#3a2810);
+  border: 1px solid #6a5030; padding: 3px 12px; border-radius: 2px;
+  box-shadow: 0 2px 7px rgba(0,0,0,0.45);
+}
+
+/* =====================================================
+   ОБЩИЕ АНИМАЦИИ УСТРОЙСТВ
+   ===================================================== */
+.device { position: relative; }
+.device-label {
+  position: absolute; bottom: -18px; left: 50%; transform: translateX(-50%);
+  font-size: 8px; letter-spacing: 2px; color: var(--text-dim);
+  white-space: nowrap; pointer-events: none;
+}
+
+/* Активное устройство */
+.device.active { z-index: 30; }
+.device.active::after {
+  content: '';
+  position: absolute; inset: -8px; border-radius: 10px;
+  animation: ring-pulse 0.7s ease-in-out;
+  pointer-events: none; z-index: -1;
+}
+@keyframes ring-pulse {
+  0%   { box-shadow: 0 0 0 0   rgba(245,158,11,0.85); }
+  100% { box-shadow: 0 0 0 26px rgba(245,158,11,0); }
+}
+@keyframes device-flash {
+  0%,100% { filter: brightness(1); }
+  50%     { filter: brightness(2.6); }
+}
+.device.active .mon-bezel,
+.device.active .phone-body,
+.device.active .fax-body,
+.device.active .printer-body,
+.device.active .mobile-body,
+.device.active .laptop-lid,
+.device.active .tablet-body {
+  animation: device-flash 0.35s ease-in-out;
+}
+
+/* Клик */
+.device.clicked { animation: device-click 0.18s ease; }
+@keyframes device-click { 0%{transform:scale(1)} 50%{transform:scale(0.92)} 100%{transform:scale(1)} }
+
+/* Ошибка */
+.device.wrong { animation: device-wrong 0.4s ease; }
+@keyframes device-wrong { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-7px)} 75%{transform:translateX(7px)} }
+
+/* Ложный сигнал */
+.device.false-signal { animation: false-flash 0.25s ease-in-out; }
+@keyframes false-flash { 0%,100%{opacity:1} 50%{opacity:0.4; filter:brightness(1.5) saturate(0)} }
+
 
 /* ---- ПАНЕЛЬ ВВОДА ---- */
 #input-panel {

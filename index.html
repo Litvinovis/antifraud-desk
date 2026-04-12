@@ -108,72 +108,127 @@
     <!-- Офисный кабинет -->
     <div id="office-room">
 
-      <!-- Фоновые декорации -->
-      <div class="room-bg">
-        <div class="wall"></div>
-        <div class="floor"></div>
-        <div class="window-frame">
-          <div class="window-pane"></div>
-          <div class="window-blind"></div>
+      <!-- ======= ЗАДНЯЯ СТЕНА ======= -->
+      <div class="room-wall">
+        <!-- Потолочный плинтус -->
+        <div class="ceiling-edge"></div>
+
+        <!-- Потолочный светильник -->
+        <div class="ceiling-lamp">
+          <div class="cl-stem"></div>
+          <div class="cl-shade"></div>
+          <div class="cl-glow"></div>
         </div>
-        <div class="plant"></div>
-        <div class="filing-cabinet"></div>
-        <div class="ceiling-light"></div>
+
+        <!-- Окно с видом на ночной город -->
+        <div class="window-unit">
+          <div class="window-frame-inner">
+            <div class="window-glass">
+              <!-- Огни города -->
+              <div class="city-bg">
+                <div class="city-build cb1"></div>
+                <div class="city-build cb2"></div>
+                <div class="city-build cb3"></div>
+                <div class="city-build cb4"></div>
+                <div class="city-build cb5"></div>
+              </div>
+              <div class="win-cross-h"></div>
+              <div class="win-cross-v"></div>
+            </div>
+          </div>
+          <div class="window-sill-top"></div>
+          <div class="window-curtain wcl"></div>
+          <div class="window-curtain wcr"></div>
+        </div>
+
+        <!-- Маркерная доска на стене -->
+        <div class="whiteboard">
+          <div class="wb-frame">
+            <div class="wb-header">◉ INCIDENT LOG</div>
+            <div class="wb-body">
+              <div class="wb-line wl1"></div>
+              <div class="wb-line wl2"></div>
+              <div class="wb-line wl3"></div>
+              <div class="wb-nodes">
+                <div class="wbn n-red">!</div>
+                <div class="wbn-arrow">→</div>
+                <div class="wbn n-yellow">?</div>
+                <div class="wbn-arrow">→</div>
+                <div class="wbn n-green">✓</div>
+              </div>
+            </div>
+          </div>
+          <div class="wb-tray">
+            <div class="wb-marker"></div>
+            <div class="wb-marker"></div>
+          </div>
+        </div>
+
+        <!-- Настенные часы -->
+        <div class="wall-clock">
+          <div class="wc-rim">
+            <div class="wc-face">
+              <div class="wc-tick t12"></div>
+              <div class="wc-tick t3"></div>
+              <div class="wc-tick t6"></div>
+              <div class="wc-tick t9"></div>
+              <div class="wc-hand hour-hand"></div>
+              <div class="wc-hand minute-hand"></div>
+              <div class="wc-dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Стеллаж с папками (левый угол) -->
+        <div class="wall-shelf">
+          <div class="ws-bracket"></div>
+          <div class="ws-plank top-plank"></div>
+          <div class="ws-plank bot-plank"></div>
+          <div class="binders">
+            <div class="bd bd-r"></div>
+            <div class="bd bd-b"></div>
+            <div class="bd bd-g"></div>
+            <div class="bd bd-y"></div>
+            <div class="bd bd-r"></div>
+          </div>
+          <div class="binders" style="top:0">
+            <div class="bd bd-b"></div>
+            <div class="bd bd-g"></div>
+            <div class="bd bd-y"></div>
+          </div>
+        </div>
+
+        <!-- Плинтус у пола -->
+        <div class="baseboard"></div>
+      </div><!-- .room-wall -->
+
+      <!-- ======= ПОЛ ======= -->
+      <div class="room-floor">
+        <!-- Коврик под кресло -->
+        <div class="floor-rug"></div>
       </div>
 
-      <!-- Рабочий стол -->
-      <div class="desk">
-        <div class="desk-surface"></div>
-
-        <!-- 9 интерактивных приборов -->
-
-        <!-- Мониторы (3 шт) -->
-        <div class="device monitor-red" id="dev-0" data-id="0">
-          <div class="monitor-stand"></div>
-          <div class="monitor-body">
-            <div class="monitor-screen red-screen">
-              <div class="screen-content">
-                <div class="alert-icon">⚠</div>
-                <div class="screen-lines">
-                  <div class="sline"></div><div class="sline"></div><div class="sline s3"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="device-label">FRAUD<br>MONITOR</div>
+      <!-- ======= РАСТЕНИЕ В УГЛУ ======= -->
+      <div class="corner-plant">
+        <div class="cp-pot">
+          <div class="cp-soil"></div>
         </div>
+        <div class="cp-leaves">🌿</div>
+      </div>
 
-        <div class="device monitor-blue" id="dev-1" data-id="1">
-          <div class="monitor-stand"></div>
-          <div class="monitor-body">
-            <div class="monitor-screen blue-screen">
-              <div class="screen-content">
-                <div class="chart-bars">
-                  <div class="bar b1"></div><div class="bar b2"></div>
-                  <div class="bar b3"></div><div class="bar b4"></div>
-                </div>
-              </div>
-            </div>
+      <!-- ======= ТУМБА СПРАВА: Принтер + Факс ======= -->
+      <div class="side-cabinet">
+        <!-- Принтер (сверху тумбы) -->
+        <div class="device printer" id="dev-4" data-id="4">
+          <div class="printer-body">
+            <div class="printer-slot-top"></div>
+            <div class="printer-paper-out"></div>
+            <div class="printer-led"></div>
+            <div class="printer-button"></div>
           </div>
-          <div class="device-label">ANALYTICS</div>
+          <div class="device-label">PRINTER</div>
         </div>
-
-        <div class="device monitor-green" id="dev-2" data-id="2">
-          <div class="monitor-stand"></div>
-          <div class="monitor-body">
-            <div class="monitor-screen green-screen">
-              <div class="screen-content">
-                <div class="terminal-lines">
-                  <div class="tline">&gt; SCAN...</div>
-                  <div class="tline">&gt; CHECK</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="device-label">TERMINAL</div>
-        </div>
-
-        <!-- Факс -->
+        <!-- Факс (на поверхности тумбы) -->
         <div class="device fax-machine" id="dev-3" data-id="3">
           <div class="fax-body">
             <div class="fax-slot"></div>
@@ -185,77 +240,247 @@
           </div>
           <div class="device-label">FAX</div>
         </div>
-
-        <!-- Принтер -->
-        <div class="device printer" id="dev-4" data-id="4">
-          <div class="printer-body">
-            <div class="printer-slot-top"></div>
-            <div class="printer-paper-out"></div>
-            <div class="printer-led"></div>
-            <div class="printer-button"></div>
-          </div>
-          <div class="device-label">PRINTER</div>
+        <!-- Корпус тумбы -->
+        <div class="sc-body">
+          <div class="sc-drawer"></div>
+          <div class="sc-drawer"></div>
+          <div class="sc-drawer"></div>
         </div>
+        <div class="sc-top-surface"></div>
+      </div><!-- .side-cabinet -->
 
-        <!-- Стационарный телефон -->
-        <div class="device phone-desk" id="dev-5" data-id="5">
-          <div class="phone-body">
-            <div class="phone-handset"></div>
-            <div class="phone-keypad">
-              <div class="pk"></div><div class="pk"></div><div class="pk"></div>
-              <div class="pk"></div><div class="pk"></div><div class="pk"></div>
-            </div>
-            <div class="phone-cord"></div>
-          </div>
-          <div class="device-label">HOTLINE</div>
+      <!-- ======= ОФИСНОЕ КРЕСЛО ======= -->
+      <div class="office-chair">
+        <div class="oc-back">
+          <div class="oc-lumbar"></div>
+          <div class="oc-headrest"></div>
         </div>
-
-        <!-- Мобильный телефон -->
-        <div class="device phone-mobile" id="dev-6" data-id="6">
-          <div class="mobile-body">
-            <div class="mobile-screen">
-              <div class="mobile-notch"></div>
-              <div class="mobile-content">
-                <div class="alert-dot"></div>
-              </div>
-            </div>
-            <div class="mobile-button"></div>
-          </div>
-          <div class="device-label">MOBILE</div>
+        <div class="oc-arm oc-arm-l"></div>
+        <div class="oc-arm oc-arm-r"></div>
+        <div class="oc-seat"></div>
+        <div class="oc-column"></div>
+        <div class="oc-base">
+          <div class="oc-leg"></div>
+          <div class="oc-leg"></div>
+          <div class="oc-leg"></div>
+          <div class="oc-leg"></div>
+          <div class="oc-leg"></div>
         </div>
+      </div>
 
-        <!-- Ноутбук -->
-        <div class="device laptop" id="dev-7" data-id="7">
-          <div class="laptop-lid">
-            <div class="laptop-screen">
-              <div class="laptop-content">
-                <div class="l-icon">🔒</div>
-              </div>
-            </div>
-          </div>
-          <div class="laptop-base">
-            <div class="laptop-keyboard"></div>
-            <div class="laptop-touchpad"></div>
-          </div>
-          <div class="device-label">LAPTOP</div>
-        </div>
+      <!-- ======= ГЛАВНЫЙ РАБОЧИЙ СТОЛ ======= -->
+      <div class="main-desk">
 
-        <!-- Планшет -->
-        <div class="device tablet" id="dev-8" data-id="8">
-          <div class="tablet-body">
-            <div class="tablet-screen">
-              <div class="tablet-content">
-                <div class="t-graph">
-                  <div class="tg-line"></div>
+        <!-- Мониторы — стоят на столе, экраны возвышаются над поверхностью -->
+
+        <!-- Красный монитор (левый) -->
+        <div class="device monitor-red" id="dev-0" data-id="0">
+          <div class="mon-body">
+            <div class="mon-bezel">
+              <div class="monitor-screen red-screen">
+                <div class="screen-content">
+                  <div class="sc-topbar">
+                    <div class="sc-dot d-r"></div>
+                    <div class="sc-dot d-y"></div>
+                    <div class="sc-dot d-g"></div>
+                  </div>
+                  <div class="alert-icon">⚠</div>
+                  <div class="screen-lines">
+                    <div class="sline"></div>
+                    <div class="sline"></div>
+                    <div class="sline s3"></div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="tablet-home"></div>
+            <div class="mon-chin"></div>
           </div>
-          <div class="device-label">TABLET</div>
+          <div class="mon-stand">
+            <div class="mon-neck"></div>
+            <div class="mon-base"></div>
+          </div>
+          <div class="device-label">FRAUD MONITOR</div>
         </div>
 
-      </div><!-- .desk -->
+        <!-- Синий монитор (центральный, самый большой) -->
+        <div class="device monitor-blue" id="dev-1" data-id="1">
+          <div class="mon-body">
+            <div class="mon-bezel">
+              <div class="monitor-screen blue-screen">
+                <div class="screen-content">
+                  <div class="sc-topbar">
+                    <div class="sc-dot d-r"></div>
+                    <div class="sc-dot d-y"></div>
+                    <div class="sc-dot d-g"></div>
+                  </div>
+                  <div class="chart-bars">
+                    <div class="bar b1"></div>
+                    <div class="bar b2"></div>
+                    <div class="bar b3"></div>
+                    <div class="bar b4"></div>
+                    <div class="bar b5"></div>
+                  </div>
+                  <div class="chart-label">TXN/min</div>
+                </div>
+              </div>
+            </div>
+            <div class="mon-chin"></div>
+          </div>
+          <div class="mon-stand">
+            <div class="mon-neck"></div>
+            <div class="mon-base"></div>
+          </div>
+          <div class="device-label">ANALYTICS</div>
+        </div>
+
+        <!-- Зелёный монитор (правый) -->
+        <div class="device monitor-green" id="dev-2" data-id="2">
+          <div class="mon-body">
+            <div class="mon-bezel">
+              <div class="monitor-screen green-screen">
+                <div class="screen-content">
+                  <div class="sc-topbar">
+                    <div class="sc-dot d-r"></div>
+                    <div class="sc-dot d-y"></div>
+                    <div class="sc-dot d-g"></div>
+                  </div>
+                  <div class="terminal-lines">
+                    <div class="tline">&gt;_ SCAN IP...</div>
+                    <div class="tline">&gt;_ CHECK TX</div>
+                    <div class="tline tl-blink">&gt;_ ▊</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mon-chin"></div>
+          </div>
+          <div class="mon-stand">
+            <div class="mon-neck"></div>
+            <div class="mon-base"></div>
+          </div>
+          <div class="device-label">TERMINAL</div>
+        </div>
+
+        <!-- Поверхность стола -->
+        <div class="desk-top-surface">
+
+          <!-- Стационарный телефон (левый край) -->
+          <div class="device phone-desk" id="dev-5" data-id="5">
+            <div class="phone-body">
+              <div class="phone-handset"></div>
+              <div class="phone-keypad">
+                <div class="pk"></div><div class="pk"></div><div class="pk"></div>
+                <div class="pk"></div><div class="pk"></div><div class="pk"></div>
+                <div class="pk"></div><div class="pk"></div><div class="pk"></div>
+              </div>
+              <div class="phone-display"></div>
+            </div>
+            <div class="device-label">HOTLINE</div>
+          </div>
+
+          <!-- Декор: клавиатура и мышь -->
+          <div class="keyboard-decor">
+            <div class="kd-kb">
+              <div class="kd-row"></div>
+              <div class="kd-row"></div>
+              <div class="kd-row"></div>
+              <div class="kd-space"></div>
+            </div>
+            <div class="kd-mouse"></div>
+          </div>
+
+          <!-- Мобильный телефон лежит на столе -->
+          <div class="device phone-mobile" id="dev-6" data-id="6">
+            <div class="mobile-body">
+              <div class="mobile-screen">
+                <div class="mobile-notch"></div>
+                <div class="mobile-content">
+                  <div class="alert-dot"></div>
+                  <div class="mobile-text-lines">
+                    <div class="mtl"></div>
+                    <div class="mtl"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="mobile-button"></div>
+            </div>
+            <div class="device-label">MOBILE</div>
+          </div>
+
+          <!-- Ноутбук открытый -->
+          <div class="device laptop" id="dev-7" data-id="7">
+            <div class="laptop-lid">
+              <div class="laptop-screen">
+                <div class="laptop-content">
+                  <div class="ls-topbar">
+                    <div class="ls-dot"></div>
+                    <div class="ls-dot"></div>
+                    <div class="ls-dot"></div>
+                  </div>
+                  <div class="ls-code">
+                    <div class="lsc-line"></div>
+                    <div class="lsc-line lsc-short"></div>
+                    <div class="lsc-line"></div>
+                    <div class="lsc-line lsc-short"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="laptop-hinge"></div>
+            </div>
+            <div class="laptop-base">
+              <div class="lb-keyboard"></div>
+              <div class="lb-touchpad"></div>
+            </div>
+            <div class="device-label">LAPTOP</div>
+          </div>
+
+          <!-- Планшет лежит на столе -->
+          <div class="device tablet" id="dev-8" data-id="8">
+            <div class="tablet-body">
+              <div class="tablet-screen">
+                <div class="tablet-content">
+                  <div class="t-graph">
+                    <div class="tg-line"></div>
+                    <div class="tg-dots">
+                      <div class="tgd"></div>
+                      <div class="tgd"></div>
+                      <div class="tgd"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tablet-home"></div>
+            </div>
+            <div class="device-label">TABLET</div>
+          </div>
+
+          <!-- Декоративные объекты на столе -->
+          <div class="desk-papers">
+            <div class="dp-sheet dp1"></div>
+            <div class="dp-sheet dp2"></div>
+          </div>
+          <div class="desk-coffee">
+            <div class="dc-cup"></div>
+            <div class="dc-steam"></div>
+          </div>
+          <div class="desk-nameplate">
+            <div class="dn-text">FRAUD ANALYST</div>
+          </div>
+
+        </div><!-- .desk-top-surface -->
+
+        <!-- Передняя грань стола (видимая сторона) -->
+        <div class="desk-front-face">
+          <div class="dff-drawer">
+            <div class="dff-knob"></div>
+          </div>
+          <div class="dff-drawer">
+            <div class="dff-knob"></div>
+          </div>
+          <div class="dff-side"></div>
+        </div>
+
+      </div><!-- .main-desk -->
 
       <!-- Панель текущего ввода -->
       <div id="input-panel">

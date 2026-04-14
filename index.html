@@ -30,6 +30,21 @@
           </button>
         </div>
 
+        <div class="diff-selector">
+          <button class="diff-btn" data-diff="easy" id="btn-easy">
+            <span class="diff-icon">🟢</span>
+            <span>Легкий</span>
+          </button>
+          <button class="diff-btn active" data-diff="medium" id="btn-medium">
+            <span class="diff-icon">🟡</span>
+            <span>Средний</span>
+          </button>
+          <button class="diff-btn" data-diff="hard" id="btn-hard">
+            <span class="diff-icon">🔴</span>
+            <span>Сложный</span>
+          </button>
+        </div>
+
         <div id="solo-inputs">
           <input type="text" id="player1-name" placeholder="Ваш позывной..." maxlength="20" autocomplete="off" />
         </div>
@@ -42,6 +57,11 @@
         <button id="btn-start" class="btn-primary">
           <span>ПРИСТУПИТЬ К РАБОТЕ</span>
           <span class="btn-arrow">→</span>
+        </button>
+
+        <button id="btn-show-leaderboard" class="btn-leaderboard">
+          <span>📋</span>
+          <span>ТАБЛИЦА ЛИДЕРОВ</span>
         </button>
       </div>
 
@@ -90,6 +110,10 @@
       <div class="hud-block" id="hud-phase">
         <span class="hud-label">СТАТУС</span>
         <span class="hud-value" id="phase-value">—</span>
+      </div>
+      <div class="hud-block" id="hud-diff">
+        <span class="hud-label">РЕЖИМ</span>
+        <span class="hud-value" id="diff-value">—</span>
       </div>
       <div class="hud-block" id="hud-stress">
         <span class="hud-label">СТРЕСС</span>
@@ -534,6 +558,36 @@
       </div>
 
       <button id="btn-restart" class="btn-primary">🔄 Новая операция</button>
+    </div>
+  </div>
+
+  <!-- ======= МОДАЛ ТАБЛИЦЫ ЛИДЕРОВ ======= -->
+  <div id="leaderboard-modal" class="lb-modal hidden">
+    <div class="lb-modal-inner">
+      <div class="lb-modal-header">
+        <span class="lb-modal-title">📋 ТАБЛИЦА ЛИДЕРОВ</span>
+        <button id="lb-modal-close" class="lb-close-btn">✕</button>
+      </div>
+
+      <div class="lb-tabs">
+        <button class="lb-tab active" data-tab="easy">🟢 Лёгкий</button>
+        <button class="lb-tab" data-tab="medium">🟡 Средний</button>
+        <button class="lb-tab" data-tab="hard">🔴 Сложный</button>
+      </div>
+
+      <div class="lb-content">
+        <table id="lb-modal-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Оперативник</th>
+              <th>Раунд</th>
+              <th>Дата</th>
+            </tr>
+          </thead>
+          <tbody id="lb-modal-body"></tbody>
+        </table>
+      </div>
     </div>
   </div>
 

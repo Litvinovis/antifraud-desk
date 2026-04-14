@@ -122,6 +122,36 @@ function playSound(type) {
 }
 
 /* =====================================================
+   КОНФИГИ СЛОЖНОСТИ
+   ===================================================== */
+const DIFFICULTY = {
+  easy: {
+    label:       '🟢 ЛЁГКИЙ',
+    signalDelay: 1100,   // мс — истинный сигнал горит
+    falseDelay:  650,    // мс — ложный сигнал горит
+    pauseDelay:  380,    // мс — пауза между сигналами
+    timerBase:   10,     // сек базового таймера ввода (+ номер раунда)
+    lsKey:       'antifraud_lb_easy',
+  },
+  medium: {
+    label:       '🟡 СРЕДНИЙ',
+    signalDelay: 700,
+    falseDelay:  400,
+    pauseDelay:  250,
+    timerBase:   7,
+    lsKey:       'antifraud_lb_medium',
+  },
+  hard: {
+    label:       '🔴 СЛОЖНЫЙ',
+    signalDelay: 360,
+    falseDelay:  200,
+    pauseDelay:  120,
+    timerBase:   5,
+    lsKey:       'antifraud_lb_hard',
+  },
+};
+
+/* =====================================================
    ДАННЫЕ ОБ УСТРОЙСТВАХ
    ===================================================== */
 const DEVICES = [
@@ -141,6 +171,7 @@ const DEVICES = [
    ===================================================== */
 const state = {
   mode:        'solo',     // 'solo' | 'duel'
+  difficulty:  'medium',   // 'easy' | 'medium' | 'hard'
   players:     [],         // [{ name, balance, maxRound }]
   currentPlayer: 0,        // индекс текущего игрока (для дуэли)
   round:       1,
@@ -194,6 +225,72 @@ document.querySelectorAll('.mode-btn').forEach(btn => {
     }
   });
 });
+
+/* =====================================================
+   ВЫБОР СЛОЖНОСТИ
+   ===================================================== */
+document.querySelectorAll('.diff-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.difficulty = btn.dataset.diff;
+  });
+});
+
+/* =====================================================
+   КНОПКА ТАБЛИЦЫ ЛИДЕРОВ (стартовый экран)
+   ===================================================== */
+$('btn-show-leaderboard').addEventListener('click', () => {
+  initAudio();
+  playSound('click');
+  openLeaderboardModal('medium');
+});
+
+document.querySelectorAll('.lb-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.lb-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    openLeaderboardModal(tab.dataset.tab);
+  });
+});
+
+$('lb-modal-close').addEventListener('click', () => {
+  $('leaderboard-modal').classList.add('hidden');
+});
+
+$('leaderboard-modal').addEventListener('click', (e) => {
+  if (e.target === $('leaderboard-modal')) {
+    $('leaderboard-modal').classList.add('hidden');
+  }
+});
+
+function openLeaderboardModal(diff) {
+  // Активируем нужный таб
+  document.querySelectorAll('.lb-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === diff);
+  });
+
+  const board = getLeaderboardByDiff(diff);
+  const tbody = $('lb-modal-body');
+  tbody.innerHTML = '';
+
+  if (board.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" style="color:var(--text-dim);text-align:center">Рекордов пока нет</td></tr>';
+  } else {
+    board.forEach((entry, i) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${escapeHtml(entry.name)}</td>
+        <td>${entry.maxRound}</td>
+        <td>${entry.date}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  $('leaderboard-modal').classList.remove('hidden');
+}
 
 $('btn-start').addEventListener('click', () => {
   initAudio();
@@ -323,8 +420,10 @@ function runDemoPhase(index, callback) {
     callback();
     return;
   }
-  const item = state.fullSequence[index];
-  const delay = item.real ? 700 : 400; // реальный сигнал длиннее
+  const item   = state.fullSequence[index];
+  const cfg    = DIFFICULTY[state.difficulty];
+  const delay  = item.real ? cfg.signalDelay : cfg.falseDelay;
+  const pause  = cfg.pauseDelay;
 
   activateDevice(item.id, item.real);
   if (item.real) playSound('signal'); else playSound('false');
@@ -333,7 +432,7 @@ function runDemoPhase(index, callback) {
     deactivateDevice(item.id, item.real);
     setTimeout(() => {
       runDemoPhase(index + 1, callback);
-    }, 250);
+    }, pause);
   }, delay);
 }
 
@@ -359,8 +458,8 @@ function startInputPhase() {
   showPhaseOverlay('🖱 ВВОДИ');
   setTimeout(hidePhaseOverlay, 900);
 
-  // Таймер ввода: 7 + номер раунда секунд
-  const totalTime = 7 + state.round;
+  // Таймер ввода: timerBase + номер раунда секунд
+  const totalTime = DIFFICULTY[state.difficulty].timerBase + state.round;
   startTimer(totalTime, () => {
     // Время вышло — провал
     handleInputTimeout();
@@ -690,6 +789,7 @@ function updateHUD() {
   $('round-value').textContent     = state.round;
   $('player-name-value').textContent = p.name;
   $('phase-value').textContent     = phaseLabel(state.phase);
+  $('diff-value').textContent      = DIFFICULTY[state.difficulty].label;
 }
 
 function phaseLabel(phase) {
@@ -795,19 +895,24 @@ function showResult(icon, title, desc, onContinue) {
 /* =====================================================
    ТАБЛИЦА РЕКОРДОВ
    ===================================================== */
-const LS_KEY = 'antifraud_leaderboard';
-
 function saveScore(name, maxRound) {
-  const board = getLeaderboard();
+  const key   = DIFFICULTY[state.difficulty].lsKey;
+  const board = getLeaderboardByDiff(state.difficulty);
   board.push({ name, maxRound, date: new Date().toLocaleDateString('ru-RU') });
   board.sort((a, b) => b.maxRound - a.maxRound);
-  localStorage.setItem(LS_KEY, JSON.stringify(board.slice(0, 10)));
+  localStorage.setItem(key, JSON.stringify(board.slice(0, 15)));
 }
 
-function getLeaderboard() {
+function getLeaderboardByDiff(diff) {
+  const key = DIFFICULTY[diff]?.lsKey || DIFFICULTY.medium.lsKey;
   try {
-    return JSON.parse(localStorage.getItem(LS_KEY)) || [];
+    return JSON.parse(localStorage.getItem(key)) || [];
   } catch { return []; }
+}
+
+// Обратная совместимость — используется на экране gameover
+function getLeaderboard() {
+  return getLeaderboardByDiff(state.difficulty);
 }
 
 function renderLeaderboard() {

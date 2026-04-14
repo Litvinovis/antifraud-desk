@@ -246,17 +246,27 @@ $('btn-show-leaderboard').addEventListener('click', () => {
   openLeaderboardModal(state.difficulty);
 });
 
-$('btn-help').addEventListener('click', () => {
-  initAudio();
-  playSound('click');
-  $('help-modal').style.display = 'flex';
-});
-$('help-modal-close').addEventListener('click', () => {
-  $('help-modal').style.display = 'none';
-});
-$('help-modal').addEventListener('click', (e) => {
-  if (e.target === $('help-modal')) $('help-modal').style.display = 'none';
-});
+const helpModal     = $('help-modal');
+const helpCloseBtn  = $('help-modal-close');
+const helpOpenBtn   = $('btn-help');
+
+if (helpOpenBtn) {
+  helpOpenBtn.addEventListener('click', () => {
+    initAudio();
+    playSound('click');
+    helpModal.style.display = 'flex';
+  });
+}
+if (helpCloseBtn) {
+  helpCloseBtn.addEventListener('click', () => {
+    helpModal.style.display = 'none';
+  });
+}
+if (helpModal) {
+  helpModal.addEventListener('click', (e) => {
+    if (e.target === helpModal) helpModal.style.display = 'none';
+  });
+}
 
 document.querySelectorAll('.lb-tab').forEach(tab => {
   tab.addEventListener('click', () => {

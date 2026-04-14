@@ -1300,7 +1300,8 @@ html, body {
 }
 .diff-btn {
   flex: 1; padding: 10px 8px;
-  background: transparent; border: none;
+  -webkit-appearance: none; appearance: none;
+  background: var(--bg-dark); border: none;
   border-right: 1px solid var(--border);
   color: var(--text-dim); cursor: pointer; font-family: inherit; font-size: 13px;
   letter-spacing: 2px;
@@ -1323,7 +1324,8 @@ html, body {
 }
 .btn-aux {
   flex: 1; padding: 10px 8px;
-  background: transparent;
+  -webkit-appearance: none; appearance: none;
+  background: var(--bg-dark);
   border: none; border-right: 1px solid var(--border);
   color: var(--text-dim);
   cursor: pointer; font-family: inherit; font-size: 12px;

@@ -243,29 +243,26 @@ document.querySelectorAll('.diff-btn').forEach(btn => {
 $('btn-show-leaderboard').addEventListener('click', () => {
   initAudio();
   playSound('click');
-  openLeaderboardModal('medium');
+  openLeaderboardModal(state.difficulty);
 });
 
 document.querySelectorAll('.lb-tab').forEach(tab => {
   tab.addEventListener('click', () => {
-    document.querySelectorAll('.lb-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
     openLeaderboardModal(tab.dataset.tab);
   });
 });
 
-$('lb-modal-close').addEventListener('click', () => {
-  $('leaderboard-modal').classList.add('hidden');
-});
+$('lb-modal-close').addEventListener('click', closeLeaderboardModal);
 
 $('leaderboard-modal').addEventListener('click', (e) => {
-  if (e.target === $('leaderboard-modal')) {
-    $('leaderboard-modal').classList.add('hidden');
-  }
+  if (e.target === $('leaderboard-modal')) closeLeaderboardModal();
 });
 
+function closeLeaderboardModal() {
+  $('leaderboard-modal').style.display = 'none';
+}
+
 function openLeaderboardModal(diff) {
-  // Активируем нужный таб
   document.querySelectorAll('.lb-tab').forEach(t => {
     t.classList.toggle('active', t.dataset.tab === diff);
   });
@@ -289,7 +286,7 @@ function openLeaderboardModal(diff) {
     });
   }
 
-  $('leaderboard-modal').classList.remove('hidden');
+  $('leaderboard-modal').style.display = 'flex';
 }
 
 $('btn-start').addEventListener('click', () => {

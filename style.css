@@ -1286,52 +1286,40 @@ html, body {
    ВЫБОР СЛОЖНОСТИ (стартовый экран)
    ===================================================== */
 .diff-selector {
-  display: flex; gap: 8px; width: 100%;
+  display: flex; gap: 12px; width: 100%;
 }
 .diff-btn {
-  flex: 1; padding: 10px 6px;
+  flex: 1; padding: 14px 10px;
   background: var(--bg-card); border: 2px solid var(--border);
-  color: var(--text-dim); cursor: pointer; font-family: inherit; font-size: 12px;
-  letter-spacing: 1px; border-radius: 6px;
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  color: var(--text-dim); cursor: pointer; font-family: inherit; font-size: 14px;
+  letter-spacing: 2px; border-radius: 6px;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
   transition: all 0.2s;
 }
-.diff-btn .diff-icon { font-size: 16px; }
-.diff-btn:hover { border-color: var(--text-dim); color: var(--text-main); }
-.diff-btn[data-diff="easy"].active {
-  border-color: var(--accent-green);
-  color: var(--accent-green);
-  background: rgba(16,185,129,0.1);
-  box-shadow: 0 0 14px rgba(16,185,129,0.25);
-}
-.diff-btn[data-diff="medium"].active {
+.diff-btn .diff-icon { font-size: 22px; }
+.diff-btn:hover { border-color: var(--accent-gold); color: var(--text-main); }
+.diff-btn.active {
   border-color: var(--accent-gold);
   color: var(--accent-gold);
   background: rgba(245,158,11,0.1);
-  box-shadow: 0 0 14px rgba(245,158,11,0.25);
-}
-.diff-btn[data-diff="hard"].active {
-  border-color: var(--accent-red);
-  color: var(--accent-red);
-  background: rgba(229,62,62,0.1);
-  box-shadow: 0 0 14px rgba(229,62,62,0.25);
+  box-shadow: 0 0 16px rgba(245,158,11,0.3);
 }
 
 /* Кнопка "Таблица лидеров" */
 .btn-leaderboard {
-  width: 100%; padding: 11px 24px;
+  width: 100%; padding: 13px 24px;
   background: transparent;
   border: 2px solid var(--border);
   color: var(--text-dim);
-  cursor: pointer; font-family: inherit; font-size: 13px;
-  letter-spacing: 2px; border-radius: 6px;
+  cursor: pointer; font-family: inherit; font-size: 14px;
+  letter-spacing: 3px; border-radius: 6px;
   display: flex; align-items: center; justify-content: center; gap: 10px;
   transition: all 0.2s;
 }
 .btn-leaderboard:hover {
-  border-color: var(--accent-blue);
-  color: var(--accent-blue);
-  background: rgba(59,130,246,0.08);
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  background: rgba(245,158,11,0.07);
 }
 
 /* =====================================================

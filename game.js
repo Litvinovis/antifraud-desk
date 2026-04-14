@@ -246,6 +246,18 @@ $('btn-show-leaderboard').addEventListener('click', () => {
   openLeaderboardModal(state.difficulty);
 });
 
+$('btn-help').addEventListener('click', () => {
+  initAudio();
+  playSound('click');
+  $('help-modal').style.display = 'flex';
+});
+$('help-modal-close').addEventListener('click', () => {
+  $('help-modal').style.display = 'none';
+});
+$('help-modal').addEventListener('click', (e) => {
+  if (e.target === $('help-modal')) $('help-modal').style.display = 'none';
+});
+
 document.querySelectorAll('.lb-tab').forEach(tab => {
   tab.addEventListener('click', () => {
     openLeaderboardModal(tab.dataset.tab);
@@ -295,13 +307,13 @@ $('btn-start').addEventListener('click', () => {
 
   if (state.mode === 'solo') {
     const name = $('player1-name').value.trim() || 'Оперативник';
-    state.players = [{ name, balance: 1_000_000, maxRound: 0 }];
+    state.players = [{ name, balance: 200_000, maxRound: 0 }];
   } else {
     const n1 = $('player1-duel-name').value.trim() || 'Оперативник 1';
     const n2 = $('player2-duel-name').value.trim() || 'Оперативник 2';
     state.players = [
-      { name: n1, balance: 1_000_000, maxRound: 0, alive: true },
-      { name: n2, balance: 1_000_000, maxRound: 0, alive: true },
+      { name: n1, balance: 200_000, maxRound: 0, alive: true },
+      { name: n2, balance: 200_000, maxRound: 0, alive: true },
     ];
   }
 

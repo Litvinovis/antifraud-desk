@@ -1107,9 +1107,22 @@ html, body {
 .device.wrong { animation: device-wrong 0.4s ease; }
 @keyframes device-wrong { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-7px)} 75%{transform:translateX(7px)} }
 
-/* Ложный сигнал */
-.device.false-signal { animation: false-flash 0.25s ease-in-out; }
-@keyframes false-flash { 0%,100%{opacity:1} 50%{opacity:0.4; filter:brightness(1.5) saturate(0)} }
+/* Ложный сигнал — синяя вспышка */
+.device.false-signal { animation: false-flash 0.3s ease-in-out; }
+.device.false-signal::after {
+  content: '';
+  position: absolute; inset: -8px; border-radius: 10px;
+  animation: false-ring-pulse 0.5s ease-out;
+  pointer-events: none; z-index: -1;
+}
+@keyframes false-ring-pulse {
+  0%   { box-shadow: 0 0 0 0   rgba(59,130,246,0.9); }
+  100% { box-shadow: 0 0 0 22px rgba(59,130,246,0); }
+}
+@keyframes false-flash {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; filter: brightness(1.6) hue-rotate(190deg) saturate(2); }
+}
 
 
 /* ---- ПАНЕЛЬ ВВОДА ---- */
@@ -1181,14 +1194,7 @@ html, body {
   to   { transform: scale(1);   opacity: 1; }
 }
 
-/* Ложный сигнал — специальная анимация */
-.device.false-signal {
-  animation: false-flash 0.25s ease-in-out;
-}
-@keyframes false-flash {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.5; filter: brightness(1.5) saturate(0); }
-}
+/* дублирующийся блок удалён — правила выше */
 
 /* =====================================================
    ЭКРАН РЕЗУЛЬТАТА
@@ -1310,21 +1316,23 @@ html, body {
   box-shadow: inset 0 -2px 0 var(--accent-gold);
 }
 
-/* Кнопка "Таблица лидеров" */
-.btn-leaderboard {
-  width: 100%; padding: 10px 24px;
+/* Кнопки «Лидеры» и «Справка» */
+.aux-btns {
+  display: flex; gap: 0; width: 100%;
+  border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+}
+.btn-aux {
+  flex: 1; padding: 10px 8px;
   background: transparent;
-  border: none;
-  border-top: 1px solid var(--border);
+  border: none; border-right: 1px solid var(--border);
   color: var(--text-dim);
   cursor: pointer; font-family: inherit; font-size: 12px;
   letter-spacing: 2px;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  transition: color 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: color 0.2s, background 0.2s;
 }
-.btn-leaderboard:hover {
-  color: var(--accent-gold);
-}
+.btn-aux:last-child { border-right: none; }
+.btn-aux:hover { color: var(--accent-gold); background: rgba(245,158,11,0.06); }
 
 /* =====================================================
    МОДАЛЬНОЕ ОКНО ТАБЛИЦЫ ЛИДЕРОВ
@@ -1403,3 +1411,33 @@ html, body {
 #lb-modal-table tr:first-child td { color: var(--accent-gold); }
 #lb-modal-table tr:nth-child(2) td { color: #94a3b8; }
 #lb-modal-table tr:nth-child(3) td { color: #78716c; }
+
+/* =====================================================
+   МОДАЛ СПРАВКИ
+   ===================================================== */
+.help-modal-inner { max-width: 560px; }
+
+.help-content { display: flex; flex-direction: column; gap: 0; }
+
+.help-section {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(45,55,72,0.4);
+}
+.help-section:last-child { border-bottom: none; }
+
+.help-icon { font-size: 22px; flex-shrink: 0; padding-top: 2px; }
+
+.help-title {
+  font-size: 11px; letter-spacing: 2px;
+  color: var(--accent-gold); margin-bottom: 5px;
+}
+.help-text {
+  font-size: 13px; color: var(--text-dim); line-height: 1.6;
+  letter-spacing: 0.3px;
+}
+
+.hl-gold  { color: var(--accent-gold); }
+.hl-blue  { color: var(--accent-blue); }
+.hl-red   { color: var(--accent-red); }
+.hl-green { color: var(--accent-green); }

@@ -59,10 +59,14 @@
           <span class="btn-arrow">→</span>
         </button>
 
-        <button id="btn-show-leaderboard" class="btn-leaderboard">
-          <span>📋</span>
-          <span>ТАБЛИЦА ЛИДЕРОВ</span>
-        </button>
+        <div class="aux-btns">
+          <button id="btn-show-leaderboard" class="btn-aux">
+            <span>📋</span><span>ЛИДЕРЫ</span>
+          </button>
+          <button id="btn-help" class="btn-aux">
+            <span>❓</span><span>СПРАВКА</span>
+          </button>
+        </div>
       </div>
 
       <!-- Краткое руководство через иконки -->
@@ -558,6 +562,59 @@
       </div>
 
       <button id="btn-restart" class="btn-primary">🔄 Новая операция</button>
+    </div>
+  </div>
+
+  <!-- ======= МОДАЛ СПРАВКИ ======= -->
+  <div id="help-modal" class="lb-modal" style="display:none">
+    <div class="lb-modal-inner help-modal-inner">
+      <div class="lb-modal-header">
+        <span class="lb-modal-title">❓ КАК ИГРАТЬ</span>
+        <button id="help-modal-close" class="lb-close-btn">✕</button>
+      </div>
+      <div class="lb-content help-content">
+
+        <div class="help-section">
+          <div class="help-icon">👁️</div>
+          <div class="help-body">
+            <div class="help-title">ФАЗА НАБЛЮДЕНИЯ</div>
+            <div class="help-text">Приборы подсвечиваются дважды. Истинные сигналы — <span class="hl-gold">яркая золотая вспышка</span>. Ложные — <span class="hl-blue">синий мерцающий отблеск</span>. Запоминай только истинные, в нужном порядке.</div>
+          </div>
+        </div>
+
+        <div class="help-section">
+          <div class="help-icon">🖱️</div>
+          <div class="help-body">
+            <div class="help-title">ФАЗА ВВОДА</div>
+            <div class="help-text">Кликай по приборам в том же порядке что видел. Есть таймер — следи за полосой вверху. Кнопка ↺ сбрасывает введённую цепочку.</div>
+          </div>
+        </div>
+
+        <div class="help-section">
+          <div class="help-icon">💸</div>
+          <div class="help-body">
+            <div class="help-title">БАЛАНС И ШТРАФЫ</div>
+            <div class="help-text">Начальный баланс — <span class="hl-gold">200 000 ₽</span>. Каждая ошибка списывает <span class="hl-red">10 000 × номер раунда</span>. Заполни стресс-шкалу до 100% или обнули баланс — и операция закрыта.</div>
+          </div>
+        </div>
+
+        <div class="help-section">
+          <div class="help-icon">📈</div>
+          <div class="help-body">
+            <div class="help-title">СЛОЖНОСТЬ</div>
+            <div class="help-text"><span class="hl-green">Лёгкий</span> — больше времени между сигналами и на ввод. <span class="hl-gold">Средний</span> — стандарт. <span class="hl-red">Сложный</span> — сигналы мелькают быстро, таймер короче.</div>
+          </div>
+        </div>
+
+        <div class="help-section">
+          <div class="help-icon">⚔️</div>
+          <div class="help-body">
+            <div class="help-title">РЕЖИМ ДУЭЛЬ</div>
+            <div class="help-text">Два игрока ходят по очереди на одном ПК. Ошибся — проиграл. Кнопка <span class="hl-red">💣 Подстава</span> (1 раз за матч) добавляет противнику 2 лишних ложных сигнала.</div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 

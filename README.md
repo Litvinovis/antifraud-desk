@@ -47,4 +47,4 @@ antifraud-desk/
 
 ## GitHub Pages
 
-Игра опубликована на: https://[username].github.io/antifraud-desk/
+Игра опубликована на: https://litvinovis.github.io/antifraud-desk/
